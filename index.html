@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
+        /* ─── TOKENS LIGHT ──────────────────────────────────── */
         :root {
             --sky: #0ea5e9;
             --ocean: #06b6d4;
@@ -16,713 +17,403 @@
             --deep: #0c4a6e;
             --night: #1e293b;
             --light: #f8fafc;
+
+            --bg:       #f8fafc;
+            --surface:  #ffffff;
+            --surface2: #f1f5f9;
+            --border:   #e2e8f0;
+            --txt:      #1e293b;
+            --txt2:     #64748b;
+            --nav-bg:   rgba(255,255,255,0.92);
+            --sep-clr:  #e2e8f0;
+            --card-sh:  0 2px 16px rgba(0,0,0,0.07);
+            --meta-bg:  #f8fafc;
         }
+
+        /* ─── TOKENS DARK ───────────────────────────────────── */
+        [data-theme="dark"] {
+            --bg:       #0f172a;
+            --surface:  #1e293b;
+            --surface2: #263246;
+            --border:   #334155;
+            --txt:      #e2e8f0;
+            --txt2:     #94a3b8;
+            --nav-bg:   rgba(15,23,42,0.95);
+            --sep-clr:  #334155;
+            --card-sh:  0 2px 16px rgba(0,0,0,0.4);
+            --meta-bg:  #263246;
+            --light:    #1e293b;
+            --night:    #e2e8f0;
+        }
+        [data-theme="dark"] body { background: var(--bg); color: var(--txt); }
+        [data-theme="dark"] .day-card,
+        [data-theme="dark"] .flight-card,
+        [data-theme="dark"] .resto-card,
+        [data-theme="dark"] .tip-card,
+        [data-theme="dark"] .contact-card { background: var(--surface); color: var(--txt); }
+        [data-theme="dark"] .meta-item { background: var(--meta-bg); color: var(--txt); }
+        [data-theme="dark"] .meta-item strong { color: var(--txt2); }
+        [data-theme="dark"] .section-title { color: var(--txt); }
+        [data-theme="dark"] .section-title small { color: var(--txt2); }
+        [data-theme="dark"] .check-item { background: var(--surface); }
+        [data-theme="dark"] .check-item:hover { background: var(--surface2); }
+        [data-theme="dark"] .check-item.checked { background: #14532d; }
+        [data-theme="dark"] .resto-card p { color: var(--txt2); }
+        [data-theme="dark"] .sch-act { color: var(--txt); }
+        [data-theme="dark"] .contact-card p { color: var(--txt2); }
+        [data-theme="dark"] .tip-txt { color: var(--txt); }
+        [data-theme="dark"] .day-body { background: var(--surface); }
+        [data-theme="dark"] .schedule-item:hover { background: var(--surface2); }
+        [data-theme="dark"] .checklist-section h3 { color: var(--txt); }
+        [data-theme="dark"] .pc-activity { background: var(--surface2); color: var(--txt); }
+        [data-theme="dark"] .pc-activity:hover { background: var(--border); }
+        [data-theme="dark"] .dinner-night { background: var(--surface); }
+        [data-theme="dark"] .dinner-night select { background: var(--surface2); color: var(--txt); border-color: var(--border); }
+        [data-theme="dark"] .weather-card { background: var(--surface); }
+        [data-theme="dark"] .weather-stat { background: var(--surface2); }
+        [data-theme="dark"] footer { background: #020617; }
+        [data-theme="dark"] .sep { background: linear-gradient(90deg,transparent,var(--sep-clr),transparent); }
+        [data-theme="dark"] #vuelos,
+        [data-theme="dark"] #restaurantes,
+        [data-theme="dark"] #checklist,
+        [data-theme="dark"] #clima,
+        [data-theme="dark"] #tips { background: var(--bg) !important; }
+        [data-theme="dark"] #dias,
+        [data-theme="dark"] #credits,
+        [data-theme="dark"] #cenas,
+        [data-theme="dark"] #alertas,
+        [data-theme="dark"] #contactos { background: var(--surface) !important; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--light);
-            color: var(--night);
-            overflow-x: hidden;
-        }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--txt); overflow-x: hidden; transition: background .3s, color .3s; }
 
         /* ─── NAV ─────────────────────────────────────────── */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(14,165,233,0.15);
-            padding: 0 16px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            padding: 0 12px; height: 56px;
+            display: flex; align-items: center; gap: 5px;
+            overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
         }
         nav::-webkit-scrollbar { display: none; }
-
         .nav-link {
-            white-space: nowrap;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--deep);
-            text-decoration: none;
-            border: 1.5px solid transparent;
-            transition: all .25s;
-            flex-shrink: 0;
+            white-space: nowrap; padding: 6px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 600; color: var(--deep);
+            text-decoration: none; border: 1.5px solid transparent;
+            transition: all .25s; flex-shrink: 0;
         }
-        .nav-link:hover, .nav-link.active {
-            background: var(--sky);
-            color: white;
-            border-color: var(--sky);
+        [data-theme="dark"] .nav-link { color: #94a3b8; }
+        .nav-link:hover, .nav-link.active { background: var(--sky); color: white; border-color: var(--sky); }
+        .nav-spacer { flex: 1; }
+        .nav-btn {
+            flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+            border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; transition: transform .2s;
+            background: var(--surface2);
         }
+        .nav-btn:hover { transform: scale(1.1); }
 
-        /* ─── HERO / PORTADA ──────────────────────────────── */
+        /* ─── HERO ────────────────────────────────────────── */
         #inicio {
             min-height: 100svh;
             background: linear-gradient(160deg, #0c4a6e 0%, #0ea5e9 45%, #06b6d4 70%, #fbbf24 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px 40px;
-            position: relative;
-            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 80px 20px 40px; position: relative; overflow: hidden;
         }
-
-        /* Animated bubbles */
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            animation: float linear infinite;
-        }
-        .bubble:nth-child(1)  { width:80px;  height:80px;  left:10%; bottom:-80px; animation-duration:12s; }
+        .bubble { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.08); animation: float linear infinite; }
+        .bubble:nth-child(1)  { width:80px;  height:80px;  left:10%; bottom:-80px;  animation-duration:12s; }
         .bubble:nth-child(2)  { width:120px; height:120px; left:25%; bottom:-120px; animation-duration:18s; animation-delay:3s; }
-        .bubble:nth-child(3)  { width:60px;  height:60px;  left:50%; bottom:-60px; animation-duration:10s; animation-delay:6s; }
+        .bubble:nth-child(3)  { width:60px;  height:60px;  left:50%; bottom:-60px;  animation-duration:10s; animation-delay:6s; }
         .bubble:nth-child(4)  { width:100px; height:100px; left:70%; bottom:-100px; animation-duration:15s; animation-delay:1s; }
-        .bubble:nth-child(5)  { width:40px;  height:40px;  left:85%; bottom:-40px; animation-duration:9s;  animation-delay:4s; }
-
+        .bubble:nth-child(5)  { width:40px;  height:40px;  left:85%; bottom:-40px;  animation-duration:9s;  animation-delay:4s; }
         @keyframes float {
-            0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+            0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
             10%  { opacity: 1; }
             90%  { opacity: 1; }
             100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
         }
-
-        /* Sun */
         .sun {
-            position: absolute;
-            top: 70px; right: 30px;
-            width: 90px; height: 90px;
-            background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b);
-            border-radius: 50%;
+            position: absolute; top: 70px; right: 30px; width: 90px; height: 90px;
+            background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b); border-radius: 50%;
             box-shadow: 0 0 40px rgba(251,191,36,.7), 0 0 80px rgba(251,191,36,.3);
             animation: sunPulse 4s ease-in-out infinite;
         }
         @keyframes sunPulse {
-            0%,100% { transform: scale(1); box-shadow: 0 0 40px rgba(251,191,36,.7), 0 0 80px rgba(251,191,36,.3); }
+            0%,100% { transform: scale(1);    box-shadow: 0 0 40px rgba(251,191,36,.7), 0 0 80px rgba(251,191,36,.3); }
             50%      { transform: scale(1.12); box-shadow: 0 0 60px rgba(251,191,36,.9), 0 0 120px rgba(251,191,36,.4); }
         }
+        .hero-title { font-family:'Playfair Display',serif; font-size:clamp(52px,14vw,96px); font-weight:900; color:white; text-shadow:0 4px 20px rgba(0,0,0,0.25); line-height:1; text-align:center; z-index:2; animation:heroIn 1s ease-out both; }
+        .hero-year  { font-family:'Playfair Display',serif; font-size:clamp(36px,10vw,72px); font-weight:700; color:rgba(255,255,255,0.9); text-align:center; z-index:2; animation:heroIn 1.2s ease-out both; margin-bottom:6px; }
+        .hero-sub   { font-size:clamp(13px,3.5vw,18px); color:rgba(255,255,255,0.85); text-align:center; z-index:2; animation:heroIn 1.4s ease-out both; margin-bottom:28px; }
+        @keyframes heroIn { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
 
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(52px, 14vw, 96px);
-            font-weight: 900;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.25);
-            line-height: 1;
-            text-align: center;
-            z-index: 2;
-            animation: heroIn 1s ease-out both;
-        }
-        .hero-year {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(36px, 10vw, 72px);
-            font-weight: 700;
-            color: rgba(255,255,255,0.9);
-            text-align: center;
-            z-index: 2;
-            animation: heroIn 1.2s ease-out both;
-            margin-bottom: 6px;
-        }
-        .hero-sub {
-            font-size: clamp(13px, 3.5vw, 18px);
-            color: rgba(255,255,255,0.85);
-            text-align: center;
-            z-index: 2;
-            animation: heroIn 1.4s ease-out both;
-            margin-bottom: 28px;
-        }
-
-        @keyframes heroIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ─── COUNTDOWN ───────────────────────────────────── */
+        /* ─── COUNTDOWN ──────────────────────────────────── */
         .countdown-card {
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1.5px solid rgba(255,255,255,0.35);
-            border-radius: 24px;
-            padding: 24px 28px;
-            z-index: 2;
-            animation: heroIn 1.6s ease-out both;
-            width: 100%;
-            max-width: 480px;
-            margin-bottom: 20px;
+            background: rgba(255,255,255,0.14); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+            border: 1.5px solid rgba(255,255,255,0.35); border-radius:24px; padding:24px 28px;
+            z-index:2; animation:heroIn 1.6s ease-out both; width:100%; max-width:480px; margin-bottom:20px;
         }
+        .countdown-label { text-align:center; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:16px; }
+        .countdown-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+        .cd-box { background:rgba(255,255,255,0.18); border-radius:16px; padding:14px 6px 10px; text-align:center; }
+        .cd-num { font-size:clamp(28px,8vw,42px); font-weight:800; color:white; line-height:1; font-variant-numeric:tabular-nums; }
+        .cd-unit { font-size:10px; font-weight:600; color:rgba(255,255,255,0.7); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
+        .countdown-footer { text-align:center; font-size:12px; color:rgba(255,255,255,0.65); margin-top:14px; }
+        .countdown-footer strong { color:var(--sand); }
+        .arrived-msg { background:linear-gradient(135deg,#059669,#fbbf24); color:white; border-radius:16px; padding:20px; text-align:center; font-size:20px; font-weight:800; display:none; }
 
-        .countdown-label {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 16px;
-        }
+        .progress-wrap { width:100%; max-width:480px; z-index:2; animation:heroIn 1.8s ease-out both; }
+        .progress-label { display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.75); font-weight:600; margin-bottom:8px; padding:0 4px; }
+        .progress-bar-bg  { background:rgba(255,255,255,0.2); border-radius:99px; height:8px; overflow:hidden; }
+        .progress-bar-fill{ height:100%; border-radius:99px; background:linear-gradient(90deg,var(--palm),var(--sand)); transition:width 1s ease; }
 
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 10px;
-        }
+        .info-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; z-index:2; animation:heroIn 2s ease-out both; max-width:480px; margin-top:16px; }
+        .chip { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:white; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600; }
+        .chip.green  { background:rgba(16,185,129,0.4); border-color:rgba(16,185,129,0.6); }
+        .chip.yellow { background:rgba(251,191,36,0.35); border-color:rgba(251,191,36,0.6); color:#fef3c7; }
 
-        .cd-box {
-            background: rgba(255,255,255,0.18);
-            border-radius: 16px;
-            padding: 14px 6px 10px;
-            text-align: center;
-        }
-        .cd-num {
-            font-size: clamp(28px, 8vw, 42px);
-            font-weight: 800;
-            color: white;
-            line-height: 1;
-            font-variant-numeric: tabular-nums;
-        }
-        .cd-unit {
-            font-size: 10px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
+        .wave { display:block; width:100%; height:60px; margin-bottom:-2px; }
 
-        .countdown-footer {
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.65);
-            margin-top: 14px;
-        }
-        .countdown-footer strong {
-            color: var(--sand);
-        }
+        /* ─── SECTIONS ───────────────────────────────────── */
+        .section { padding:56px 16px; max-width:900px; margin:0 auto; }
+        .section-header { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
+        .section-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+        .section-icon.blue   { background:linear-gradient(135deg,#dbeafe,#bfdbfe); }
+        .section-icon.green  { background:linear-gradient(135deg,#dcfce7,#bbf7d0); }
+        .section-icon.yellow { background:linear-gradient(135deg,#fef9c3,#fde68a); }
+        .section-icon.purple { background:linear-gradient(135deg,#ede9fe,#ddd6fe); }
+        .section-icon.pink   { background:linear-gradient(135deg,#fce7f3,#fbcfe8); }
+        .section-icon.red    { background:linear-gradient(135deg,#fee2e2,#fecaca); }
+        .section-icon.teal   { background:linear-gradient(135deg,#ccfbf1,#99f6e4); }
+        .section-icon.amber  { background:linear-gradient(135deg,#fef3c7,#fde68a); }
+        .section-icon.sky    { background:linear-gradient(135deg,#e0f2fe,#bae6fd); }
+        .section-title { font-size:clamp(22px,5vw,30px); font-weight:800; color:var(--txt); }
+        .section-title small { display:block; font-size:13px; font-weight:500; color:var(--txt2); }
 
-        /* Progress bar */
-        .progress-wrap {
-            width: 100%;
-            max-width: 480px;
-            z-index: 2;
-            animation: heroIn 1.8s ease-out both;
-        }
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: rgba(255,255,255,0.75);
-            font-weight: 600;
-            margin-bottom: 8px;
-            padding: 0 4px;
-        }
-        .progress-bar-bg {
-            background: rgba(255,255,255,0.2);
-            border-radius: 99px;
-            height: 8px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            border-radius: 99px;
-            background: linear-gradient(90deg, var(--palm), var(--sand));
-            transition: width 1s ease;
-        }
+        /* ─── FLIGHT CARDS ───────────────────────────────── */
+        .flight-card { background:var(--surface); border-radius:20px; padding:20px; margin-bottom:16px; box-shadow:var(--card-sh); border-left:5px solid var(--sky); position:relative; overflow:hidden; }
+        .flight-card::after { content:'✈'; position:absolute; right:20px; top:50%; transform:translateY(-50%); font-size:48px; opacity:0.05; pointer-events:none; }
+        .flight-route { display:flex; align-items:center; gap:10px; margin:10px 0; flex-wrap:wrap; }
+        .airport-code { font-size:28px; font-weight:800; color:var(--deep); }
+        [data-theme="dark"] .airport-code { color:#7dd3fc; }
+        .route-line { flex:1; min-width:40px; display:flex; align-items:center; gap:6px; }
+        .route-line hr { flex:1; border:none; border-top:2px dashed #cbd5e1; }
+        [data-theme="dark"] .route-line hr { border-color:#475569; }
+        .flight-meta { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; }
+        .meta-item { background:var(--meta-bg); border-radius:10px; padding:8px 12px; font-size:12px; }
+        .meta-item strong { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:#94a3b8; margin-bottom:2px; }
+        .alert-pill { background:linear-gradient(135deg,#fee2e2,#fecaca); color:#991b1b; padding:10px 14px; border-radius:12px; font-size:13px; font-weight:600; margin-top:12px; border:1.5px solid #fca5a5; }
+        .tip-pill   { background:linear-gradient(135deg,#fef9c3,#fde68a); color:#78350f; padding:10px 14px; border-radius:12px; font-size:13px; font-weight:600; margin-top:12px; }
+        .stopover-banner { background:linear-gradient(135deg,#0c4a6e,#0ea5e9); color:white; padding:16px 20px; border-radius:16px; text-align:center; font-weight:700; font-size:15px; margin:16px 0; }
+        .flight-tag { display:inline-block; background:linear-gradient(135deg,var(--sky),var(--ocean)); color:white; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.5px; margin-bottom:8px; }
 
-        /* Info chips */
-        .info-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            z-index: 2;
-            animation: heroIn 2s ease-out both;
-            max-width: 480px;
-            margin-top: 16px;
-        }
-        .chip {
-            background: rgba(255,255,255,0.18);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .chip.green {
-            background: rgba(16,185,129,0.4);
-            border-color: rgba(16,185,129,0.6);
-        }
-        .chip.yellow {
-            background: rgba(251,191,36,0.35);
-            border-color: rgba(251,191,36,0.6);
-            color: #fef3c7;
-        }
+        /* ─── DAY CARDS ──────────────────────────────────── */
+        .day-card { background:var(--surface); border-radius:20px; overflow:hidden; margin-bottom:16px; box-shadow:var(--card-sh); }
+        .day-head { padding:18px 20px 14px; position:relative; }
+        .day-head.d1 { background:linear-gradient(135deg,#cffafe,#a5f3fc); color:#164e63; }
+        .day-head.d2 { background:linear-gradient(135deg,#dcfce7,#a7f3d0); color:#065f46; }
+        .day-head.d3 { background:linear-gradient(135deg,#fef9c3,#fde68a); color:#78350f; }
+        .day-head.d4 { background:linear-gradient(135deg,#ede9fe,#ddd6fe); color:#4c1d95; }
+        .day-head.d5 { background:linear-gradient(135deg,#fce7f3,#fbcfe8); color:#831843; }
+        .day-head.d6 { background:linear-gradient(135deg,#fee2e2,#fecaca); color:#7f1d1d; }
+        .day-number { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:.75; }
+        .day-title  { font-size:20px; font-weight:800; line-height:1.2; }
+        .day-sub    { font-size:13px; font-weight:500; opacity:.8; margin-top:2px; }
+        .day-emoji  { position:absolute; right:18px; top:50%; transform:translateY(-50%); font-size:40px; opacity:.25; }
+        .day-body { padding:12px 16px 16px; }
+        .schedule-item { display:flex; gap:12px; padding:10px 12px; border-radius:12px; margin-bottom:6px; align-items:flex-start; transition:background .2s; }
+        .schedule-item:hover { background:var(--surface2); }
+        .sch-time { font-size:11px; font-weight:700; color:var(--sky); min-width:90px; padding-top:2px; font-variant-numeric:tabular-nums; }
+        .sch-act  { font-size:13px; flex:1; line-height:1.5; }
+        .cost-tag { display:inline-flex; align-items:center; gap:4px; background:linear-gradient(135deg,#dcfce7,#bbf7d0); color:#065f46; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700; margin-top:6px; }
 
-        /* Wave divider */
-        .wave {
-            display: block;
-            width: 100%;
-            height: 60px;
-            margin-bottom: -2px;
-        }
+        /* ─── RESTAURANTS ────────────────────────────────── */
+        .resto-banner { background:linear-gradient(135deg,#fbbf24,#f59e0b); color:white; padding:20px; border-radius:20px; text-align:center; margin-bottom:20px; }
+        .resto-banner h3 { font-size:18px; font-weight:800; }
+        .resto-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+        .resto-card { background:var(--surface); border-radius:16px; padding:16px 14px 12px; box-shadow:var(--card-sh); border-top:3px solid var(--palm); transition:transform .2s,box-shadow .2s; }
+        .resto-card:hover { transform:translateY(-4px); box-shadow:0 6px 20px rgba(0,0,0,0.1); }
+        .resto-card.premium { border-top-color:var(--sand); }
+        .resto-card h4 { font-size:13px; font-weight:700; margin-bottom:4px; }
+        .resto-card p  { font-size:11px; color:var(--txt2); }
+        .badge { display:inline-block; padding:3px 8px; border-radius:10px; font-size:10px; font-weight:700; margin-top:8px; }
+        .badge.gold { background:#fef3c7; color:#92400e; }
+        .badge.blue { background:#dbeafe; color:#1e40af; }
 
-        /* ─── SECTIONS ────────────────────────────────────── */
-        .section {
-            padding: 56px 16px;
-            max-width: 900px;
-            margin: 0 auto;
+        /* ─── PALACE CREDITS TRACKER ──────────────────────── */
+        .pc-wallet {
+            background: linear-gradient(135deg, #065f46, #059669);
+            border-radius: 24px; padding: 24px; margin-bottom: 24px; color: white;
         }
+        .pc-wallet-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
+        .pc-wallet-label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:.8; margin-bottom:4px; }
+        .pc-balance { font-size:clamp(36px,10vw,52px); font-weight:800; line-height:1; }
+        .pc-balance small { font-size:18px; font-weight:600; }
+        .pc-used-label { font-size:12px; opacity:.75; margin-top:4px; }
+        .pc-reset-btn { background:rgba(255,255,255,0.2); border:1.5px solid rgba(255,255,255,0.4); color:white; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; transition:background .2s; white-space:nowrap; }
+        .pc-reset-btn:hover { background:rgba(255,255,255,0.35); }
+        .pc-bar-wrap { margin-top:16px; }
+        .pc-bar-bg { background:rgba(255,255,255,0.2); border-radius:99px; height:10px; overflow:hidden; margin-top:6px; }
+        .pc-bar-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,#fbbf24,#f59e0b); transition:width .5s ease; }
+        .pc-bar-labels { display:flex; justify-content:space-between; font-size:11px; opacity:.75; margin-bottom:4px; }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 32px;
+        .pc-activities { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+        .pc-activity {
+            background: var(--surface2); border-radius:16px; padding:16px;
+            display:flex; align-items:center; gap:12px;
+            transition: background .2s; cursor:default;
         }
-        .section-icon {
-            width: 48px; height: 48px;
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
+        .pc-activity-icon { font-size:26px; flex-shrink:0; }
+        .pc-activity-info { flex:1; min-width:0; }
+        .pc-activity-name { font-size:13px; font-weight:700; color:var(--txt); }
+        .pc-activity-desc { font-size:11px; color:var(--txt2); margin-top:2px; }
+        .pc-activity-ctrl { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+        .pc-minus, .pc-plus {
+            width:28px; height:28px; border-radius:50%; border:none; cursor:pointer;
+            font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center;
+            transition:transform .15s;
         }
-        .section-icon.blue  { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
-        .section-icon.green { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
-        .section-icon.yellow{ background: linear-gradient(135deg,#fef9c3,#fde68a); }
-        .section-icon.purple{ background: linear-gradient(135deg,#ede9fe,#ddd6fe); }
-        .section-icon.pink  { background: linear-gradient(135deg,#fce7f3,#fbcfe8); }
-        .section-icon.red   { background: linear-gradient(135deg,#fee2e2,#fecaca); }
-        .section-icon.teal  { background: linear-gradient(135deg,#ccfbf1,#99f6e4); }
+        .pc-minus { background:#fee2e2; color:#dc2626; }
+        .pc-plus  { background:#dcfce7; color:#059669; }
+        .pc-minus:hover, .pc-plus:hover { transform:scale(1.15); }
+        .pc-amount { font-size:14px; font-weight:800; color:var(--txt); min-width:50px; text-align:center; font-variant-numeric:tabular-nums; }
+        .pc-warning { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:14px; padding:14px 18px; font-size:13px; font-weight:600; color:#78350f; margin-top:12px; display:none; }
+        .pc-warning.show { display:block; }
 
-        .section-title {
-            font-size: clamp(22px, 5vw, 30px);
-            font-weight: 800;
-            color: var(--night);
+        /* ─── DINNER PLANNER ─────────────────────────────── */
+        .dinner-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+        .dinner-night { background:var(--surface); border-radius:18px; padding:18px; box-shadow:var(--card-sh); border-top:4px solid var(--sky); }
+        .dinner-date { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--sky); margin-bottom:4px; }
+        .dinner-day  { font-size:16px; font-weight:800; color:var(--txt); margin-bottom:12px; }
+        .dinner-night select {
+            width:100%; padding:10px 12px; border-radius:12px;
+            border:1.5px solid var(--border); font-size:13px; font-family:'Poppins',sans-serif;
+            background:var(--surface2); color:var(--txt); cursor:pointer;
+            appearance:none; -webkit-appearance:none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat:no-repeat; background-position:right 12px center;
+            padding-right:32px;
         }
-        .section-title small {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #64748b;
+        .dinner-night select:focus { outline:none; border-color:var(--sky); }
+        .dinner-tag { display:inline-block; margin-top:10px; padding:4px 10px; border-radius:10px; font-size:11px; font-weight:700; }
+        .dinner-tag.credits { background:#fef3c7; color:#92400e; }
+        .dinner-tag.free    { background:#dcfce7; color:#065f46; }
+        .dinner-tag.none    { background:var(--surface2); color:var(--txt2); }
+        .dinner-summary {
+            background:linear-gradient(135deg,#1e3a5f,#0ea5e9);
+            color:white; border-radius:18px; padding:20px; margin-top:20px;
+            display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;
         }
+        .dinner-summary-item { text-align:center; }
+        .dinner-summary-num  { font-size:24px; font-weight:800; }
+        .dinner-summary-lbl  { font-size:11px; opacity:.75; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
 
-        /* ─── FLIGHT CARDS ────────────────────────────────── */
-        .flight-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-            border-left: 5px solid var(--sky);
-            overflow: hidden;
-            position: relative;
-        }
-        .flight-card::after {
-            content: '✈';
-            position: absolute;
-            right: 20px; top: 50%;
-            transform: translateY(-50%);
-            font-size: 48px;
-            opacity: 0.05;
-            pointer-events: none;
-        }
-        .flight-route {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-        .airport-code {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--deep);
-        }
-        .route-line {
-            flex: 1;
-            min-width: 40px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .route-line hr {
-            flex: 1;
-            border: none;
-            border-top: 2px dashed #cbd5e1;
-        }
-        .flight-meta {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .meta-item {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
-        .meta-item strong {
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: .8px;
-            color: #94a3b8;
-            margin-bottom: 2px;
-        }
-        .alert-pill {
-            background: linear-gradient(135deg, #fee2e2, #fecaca);
-            color: #991b1b;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 12px;
-            border: 1.5px solid #fca5a5;
-        }
-        .tip-pill {
-            background: linear-gradient(135deg, #fef9c3, #fde68a);
-            color: #78350f;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 12px;
-        }
-        .stopover-banner {
-            background: linear-gradient(135deg, #0c4a6e, #0ea5e9);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 15px;
-            margin: 16px 0;
-        }
-        .flight-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--sky), var(--ocean));
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: .5px;
-            margin-bottom: 8px;
-        }
+        /* ─── WEATHER ────────────────────────────────────── */
+        .weather-alert { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:16px; padding:16px 20px; margin-bottom:20px; font-size:13px; font-weight:600; color:#78350f; }
+        .weather-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:20px; }
+        .weather-card { background:var(--surface); border-radius:20px; padding:18px 14px; box-shadow:var(--card-sh); text-align:center; border-top:3px solid; }
+        .weather-card.sun   { border-color:#f59e0b; }
+        .weather-card.cloud { border-color:#94a3b8; }
+        .weather-card.rain  { border-color:#3b82f6; }
+        .weather-icon  { font-size:36px; margin-bottom:8px; }
+        .weather-date  { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--txt2); margin-bottom:4px; }
+        .weather-desc  { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:10px; }
+        .weather-stats { display:flex; flex-direction:column; gap:6px; }
+        .weather-stat  { display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border-radius:8px; padding:5px 10px; font-size:11px; }
+        .weather-stat span:first-child { color:var(--txt2); font-weight:500; }
+        .weather-stat span:last-child  { font-weight:700; color:var(--txt); }
+        .weather-tip { background:linear-gradient(135deg,var(--surface2),var(--surface)); border-radius:16px; padding:16px 20px; font-size:13px; color:var(--txt2); line-height:1.7; border-left:4px solid var(--sky); }
 
-        /* ─── DAY CARDS ───────────────────────────────────── */
-        .day-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-        }
-        .day-head {
-            padding: 18px 20px 14px;
-            position: relative;
-        }
-        .day-head.d1 { background: linear-gradient(135deg,#cffafe,#a5f3fc); color: #164e63; }
-        .day-head.d2 { background: linear-gradient(135deg,#dcfce7,#a7f3d0); color: #065f46; }
-        .day-head.d3 { background: linear-gradient(135deg,#fef9c3,#fde68a); color: #78350f; }
-        .day-head.d4 { background: linear-gradient(135deg,#ede9fe,#ddd6fe); color: #4c1d95; }
-        .day-head.d5 { background: linear-gradient(135deg,#fce7f3,#fbcfe8); color: #831843; }
-        .day-head.d6 { background: linear-gradient(135deg,#fee2e2,#fecaca); color: #7f1d1d; }
-        .day-number {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: .75;
-        }
-        .day-title  { font-size: 20px; font-weight: 800; line-height: 1.2; }
-        .day-sub    { font-size: 13px; font-weight: 500; opacity: .8; margin-top: 2px; }
-        .day-emoji  {
-            position: absolute;
-            right: 18px; top: 50%;
-            transform: translateY(-50%);
-            font-size: 40px;
-            opacity: .25;
-        }
+        /* ─── ALERTS ─────────────────────────────────────── */
+        .alert-list { display:flex; flex-direction:column; gap:12px; }
+        .alert-row { display:flex; gap:14px; align-items:flex-start; padding:18px; border-radius:18px; color:white; }
+        .alert-row.critical { background:linear-gradient(135deg,#dc2626,#b91c1c); }
+        .alert-row.warning  { background:linear-gradient(135deg,#ea580c,#c2410c); }
+        .alert-row.success  { background:linear-gradient(135deg,#059669,#047857); }
+        .alert-row.info     { background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+        .alert-row.purple   { background:linear-gradient(135deg,#7c3aed,#6d28d9); }
+        .alert-icon { font-size:28px; flex-shrink:0; }
+        .alert-text h4 { font-size:15px; font-weight:700; margin-bottom:4px; }
+        .alert-text p  { font-size:13px; opacity:.9; line-height:1.5; }
 
-        .day-body { padding: 12px 16px 16px; }
+        /* ─── CHECKLIST ──────────────────────────────────── */
+        .checklist-section h3 { font-size:16px; font-weight:700; margin:24px 0 12px; color:var(--txt); display:flex; align-items:center; gap:8px; }
+        .check-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px; }
+        .check-item { display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface); border-radius:12px; box-shadow:0 1px 6px rgba(0,0,0,0.05); cursor:pointer; transition:background .2s; user-select:none; }
+        .check-item:hover { background:var(--surface2); }
+        .check-item.checked { background:#f0fdf4; }
+        [data-theme="dark"] .check-item.checked { background:#14532d; }
+        .check-item.checked .check-label { text-decoration:line-through; color:#94a3b8; }
+        .check-box { width:22px; height:22px; border:2.5px solid #cbd5e1; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; transition:all .2s; }
+        .check-item.checked .check-box { background:var(--palm); border-color:var(--palm); color:white; }
+        .check-item.required .check-box { border-color:#dc2626; }
+        .check-item.required:not(.checked) .check-label { font-weight:600; }
+        .check-label { font-size:13px; }
 
-        .schedule-item {
-            display: flex;
-            gap: 12px;
-            padding: 10px 12px;
-            border-radius: 12px;
-            margin-bottom: 6px;
-            align-items: flex-start;
-            transition: background .2s;
-        }
-        .schedule-item:hover { background: var(--light); }
-        .sch-time {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--sky);
-            min-width: 90px;
-            padding-top: 2px;
-            font-variant-numeric: tabular-nums;
-        }
-        .sch-act {
-            font-size: 13px;
-            flex: 1;
-            line-height: 1.5;
-        }
-        .cost-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: linear-gradient(135deg,#dcfce7,#bbf7d0);
-            color: #065f46;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 6px;
-        }
+        /* ─── CONTACTS ───────────────────────────────────── */
+        .contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
+        .contact-card { background:var(--surface); border-radius:16px; padding:18px; box-shadow:var(--card-sh); border-left:4px solid var(--sky); }
+        .contact-card h4 { font-size:14px; font-weight:700; color:var(--deep); margin-bottom:8px; }
+        [data-theme="dark"] .contact-card h4 { color:#7dd3fc; }
+        .contact-card p  { font-size:12px; color:var(--txt2); line-height:1.7; }
+        .contact-card a  { color:var(--sky); text-decoration:none; font-weight:600; }
 
-        /* ─── RESTAURANTS ─────────────────────────────────── */
-        .resto-banner {
-            background: linear-gradient(135deg,#fbbf24,#f59e0b);
-            color: white;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .resto-banner h3 { font-size: 18px; font-weight: 800; }
+        /* ─── TIPS ───────────────────────────────────────── */
+        .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
+        .tip-card { background:var(--surface); border-radius:16px; padding:18px; box-shadow:var(--card-sh); border-top:3px solid var(--palm); }
+        .tip-num { font-size:22px; font-weight:800; color:var(--palm); margin-bottom:6px; }
+        .tip-txt { font-size:13px; color:var(--txt); }
 
-        .resto-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-        }
+        .budget-card { background:linear-gradient(135deg,#059669,#065f46); color:white; border-radius:20px; padding:24px; text-align:center; margin-bottom:16px; }
+        .budget-card .amount { font-size:clamp(32px,8vw,48px); font-weight:800; margin:8px 0; }
+        .budget-card small { opacity:.8; font-size:13px; }
 
-        .resto-card {
-            background: white;
-            border-radius: 16px;
-            padding: 16px 14px 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            border-top: 3px solid var(--palm);
-            transition: transform .2s, box-shadow .2s;
-        }
-        .resto-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-        .resto-card.premium { border-top-color: var(--sand); }
-        .resto-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-        .resto-card p  { font-size: 11px; color: #64748b; }
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 700;
-            margin-top: 8px;
-        }
-        .badge.gold  { background: #fef3c7; color: #92400e; }
-        .badge.blue  { background: #dbeafe; color: #1e40af; }
-
-        /* ─── ALERTS ──────────────────────────────────────── */
-        .alert-list { display: flex; flex-direction: column; gap: 12px; }
-        .alert-row {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            padding: 18px;
-            border-radius: 18px;
-            color: white;
-        }
-        .alert-row.critical { background: linear-gradient(135deg,#dc2626,#b91c1c); }
-        .alert-row.warning  { background: linear-gradient(135deg,#ea580c,#c2410c); }
-        .alert-row.success  { background: linear-gradient(135deg,#059669,#047857); }
-        .alert-row.info     { background: linear-gradient(135deg,#2563eb,#1d4ed8); }
-        .alert-row.purple   { background: linear-gradient(135deg,#7c3aed,#6d28d9); }
-        .alert-icon { font-size: 28px; flex-shrink: 0; }
-        .alert-text h4  { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-        .alert-text p   { font-size: 13px; opacity: .9; line-height: 1.5; }
-
-        /* ─── CHECKLIST ───────────────────────────────────── */
-        .checklist-section h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin: 24px 0 12px;
-            color: var(--night);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .check-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 8px;
-        }
-        .check-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 14px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: background .2s;
-            user-select: none;
-        }
-        .check-item:hover { background: #f0fdf4; }
-        .check-item.checked { background: #f0fdf4; }
-        .check-item.checked .check-label { text-decoration: line-through; color: #94a3b8; }
-        .check-box {
-            width: 22px; height: 22px;
-            border: 2.5px solid #cbd5e1;
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px;
-            flex-shrink: 0;
-            transition: all .2s;
-        }
-        .check-item.checked .check-box {
-            background: var(--palm);
-            border-color: var(--palm);
-            color: white;
-        }
-        .check-item.required .check-box {
-            border-color: #dc2626;
-        }
-        .check-item.required:not(.checked) .check-label { font-weight: 600; }
-        .check-label { font-size: 13px; }
-
-        /* ─── CONTACTS ────────────────────────────────────── */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        .contact-card {
-            background: white;
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            border-left: 4px solid var(--sky);
-        }
-        .contact-card h4 { font-size: 14px; font-weight: 700; color: var(--deep); margin-bottom: 8px; }
-        .contact-card p  { font-size: 12px; color: #475569; line-height: 1.7; }
-        .contact-card a  { color: var(--sky); text-decoration: none; font-weight: 600; }
-
-        /* ─── TIPS ────────────────────────────────────────── */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        .tip-card {
-            background: white;
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            border-top: 3px solid var(--palm);
-        }
-        .tip-num { font-size: 22px; font-weight: 800; color: var(--palm); margin-bottom: 6px; }
-        .tip-txt { font-size: 13px; color: #374151; }
-
-        /* ─── BUDGET ──────────────────────────────────────── */
-        .budget-card {
-            background: linear-gradient(135deg,#059669,#065f46);
-            color: white;
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        .budget-card .amount {
-            font-size: clamp(32px,8vw,48px);
-            font-weight: 800;
-            margin: 8px 0;
-        }
-        .budget-card small { opacity: .8; font-size: 13px; }
-
-        /* ─── FINAL ───────────────────────────────────────── */
-        .final {
-            background: linear-gradient(135deg,#0c4a6e,#0ea5e9,#fbbf24);
-            padding: 60px 20px;
-            text-align: center;
-            color: white;
-        }
+        /* ─── FINAL / FOOTER ─────────────────────────────── */
+        .final { background:linear-gradient(135deg,#0c4a6e,#0ea5e9,#fbbf24); padding:60px 20px; text-align:center; color:white; }
         .final h2 { font-family:'Playfair Display',serif; font-size:clamp(28px,7vw,48px); font-weight:900; margin-bottom:8px; }
-        .final .wave-icons { font-size: 48px; margin: 20px 0; letter-spacing: 6px; }
-        .final p { font-size: 16px; opacity: .85; }
+        .final .wave-icons { font-size:48px; margin:20px 0; letter-spacing:6px; }
+        .final p { font-size:16px; opacity:.85; }
+        footer { background:var(--night); color:rgba(255,255,255,.5); text-align:center; padding:24px 20px; font-size:12px; line-height:1.9; }
+        [data-theme="dark"] footer { background:#020617; }
+        footer strong { color:rgba(255,255,255,.8); }
 
-        /* ─── FOOTER ──────────────────────────────────────── */
-        footer {
-            background: var(--night);
-            color: rgba(255,255,255,.5);
-            text-align: center;
-            padding: 24px 20px;
-            font-size: 12px;
-            line-height: 1.9;
-        }
-        footer strong { color: rgba(255,255,255,.8); }
-
-        /* ─── FAB ─────────────────────────────────────────── */
+        /* ─── FAB ────────────────────────────────────────── */
+        .fab-group { position:fixed; bottom:24px; right:20px; display:flex; flex-direction:column; gap:10px; align-items:flex-end; z-index:99; }
         .fab {
-            position: fixed;
-            bottom: 24px; right: 20px;
-            background: linear-gradient(135deg,var(--palm),#047857);
-            color: white;
-            padding: 13px 22px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(5,150,105,.4);
-            z-index: 99;
-            transition: transform .2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background:linear-gradient(135deg,var(--palm),#047857); color:white;
+            padding:13px 20px; border-radius:50px; font-weight:700; font-size:14px;
+            border:none; cursor:pointer; box-shadow:0 8px 24px rgba(5,150,105,.4);
+            transition:transform .2s; display:flex; align-items:center; gap:6px;
         }
-        .fab:hover { transform: scale(1.05); }
+        .fab:hover { transform:scale(1.05); }
+        .fab.share-fab { background:linear-gradient(135deg,#2563eb,#1d4ed8); box-shadow:0 8px 24px rgba(37,99,235,.4); }
 
-        /* ─── SECTION SEPARATOR ───────────────────────────── */
-        .sep {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
-            margin: 0 20px;
-        }
+        /* ─── SHARE MODAL ────────────────────────────────── */
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:200; display:none; align-items:center; justify-content:center; padding:20px; }
+        .modal-overlay.open { display:flex; }
+        .modal { background:var(--surface); border-radius:24px; padding:28px; width:100%; max-width:340px; box-shadow:0 20px 60px rgba(0,0,0,.3); }
+        .modal h3 { font-size:20px; font-weight:800; color:var(--txt); margin-bottom:6px; }
+        .modal p  { font-size:13px; color:var(--txt2); margin-bottom:20px; }
+        .modal-qr { display:flex; justify-content:center; margin-bottom:20px; }
+        .modal-qr img { border-radius:12px; width:180px; height:180px; }
+        .modal-url { background:var(--surface2); border-radius:12px; padding:12px 14px; font-size:12px; color:var(--txt2); word-break:break-all; margin-bottom:14px; font-family:monospace; }
+        .modal-btns { display:flex; gap:10px; flex-direction:column; }
+        .modal-btn { padding:12px; border-radius:12px; border:none; cursor:pointer; font-size:14px; font-weight:700; transition:opacity .2s; }
+        .modal-btn:hover { opacity:.85; }
+        .modal-btn.copy  { background:linear-gradient(135deg,var(--sky),var(--ocean)); color:white; }
+        .modal-btn.wa    { background:linear-gradient(135deg,#25d366,#128c7e); color:white; }
+        .modal-btn.close { background:var(--surface2); color:var(--txt2); }
 
-        /* ─── UTILS ───────────────────────────────────────── */
-        .arrived { display: none; }
-        .arrived-msg {
-            background: linear-gradient(135deg,#059669,#fbbf24);
-            color: white;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 800;
-            display: none;
-        }
+        /* ─── SEPARATOR ──────────────────────────────────── */
+        .sep { height:1px; background:linear-gradient(90deg,transparent,var(--sep-clr),transparent); margin:0 20px; }
 
         @media print {
-            nav, .fab { display: none !important; }
-            body { background: white; }
-            #inicio { min-height: unset; padding-top: 20px; }
+            nav, .fab-group, .modal-overlay { display:none !important; }
+            body { background:white; }
+            #inicio { min-height:unset; padding-top:20px; }
         }
     </style>
 </head>
@@ -734,10 +425,15 @@
     <a href="#vuelos"    class="nav-link">✈️ Vuelos</a>
     <a href="#dias"      class="nav-link">📅 Días</a>
     <a href="#restaurantes" class="nav-link">🍽 Comida</a>
+    <a href="#credits"   class="nav-link">💳 Credits</a>
+    <a href="#cenas"     class="nav-link">🍷 Cenas</a>
+    <a href="#clima"     class="nav-link">🌤 Clima</a>
     <a href="#alertas"   class="nav-link">⚠️ Alertas</a>
     <a href="#checklist" class="nav-link">✅ Check</a>
-    <a href="#contactos" class="nav-link">📞 Contactos</a>
+    <a href="#contactos" class="nav-link">📞 SOS</a>
     <a href="#tips"      class="nav-link">💡 Tips</a>
+    <div class="nav-spacer"></div>
+    <button class="nav-btn" id="theme-btn" title="Cambiar tema" onclick="toggleTheme()">🌙</button>
 </nav>
 
 <!-- HERO -->
@@ -750,7 +446,6 @@
     <p class="hero-year">2026</p>
     <p class="hero-sub">Guía completa · Familia Estrada García · 5 personas</p>
 
-    <!-- Countdown -->
     <div class="countdown-card">
         <div class="countdown-label" id="cd-label">⏳ FALTAN PARA SALIR DE CASA</div>
         <div class="arrived-msg" id="arrived-msg">🎉 ¡YA LLEGÓ EL MOMENTO! ¡BUEN VIAJE! 🌴</div>
@@ -765,7 +460,6 @@
         </div>
     </div>
 
-    <!-- Progress -->
     <div class="progress-wrap">
         <div class="progress-label">
             <span>🗓 Hoy (Mayo 2026)</span>
@@ -776,7 +470,6 @@
         </div>
     </div>
 
-    <!-- Chips -->
     <div class="info-chips">
         <span class="chip">🏨 Moon Palace The Grand</span>
         <span class="chip">18–23 Agosto</span>
@@ -786,19 +479,17 @@
     </div>
 </section>
 
-<!-- Wave SVG -->
 <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f8fafc"/>
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--bg)"/>
 </svg>
 
 <!-- VUELOS -->
-<div id="vuelos" style="background:#f8fafc; padding-bottom:0;">
+<div id="vuelos" style="background:var(--bg); padding-bottom:0;">
 <div class="section">
     <div class="section-header">
         <div class="section-icon blue">✈️</div>
         <div class="section-title">Itinerario de vuelos <small>Copa Airlines</small></div>
     </div>
-
     <div class="flight-card">
         <div class="flight-tag">Vuelo 1 · Martes 18 Agosto</div>
         <div class="flight-route">
@@ -806,7 +497,7 @@
             <div class="route-line"><hr><span>✈</span><hr></div>
             <div class="airport-code">PTY</div>
         </div>
-        <div style="font-size:13px; color:#475569;">Guatemala → Panamá · CM 183 Economy</div>
+        <div style="font-size:13px;color:var(--txt2);">Guatemala → Panamá · CM 183 Economy</div>
         <div class="flight-meta">
             <div class="meta-item"><strong>Salida</strong>2:28 AM</div>
             <div class="meta-item"><strong>Llegada</strong>5:55 AM</div>
@@ -815,9 +506,7 @@
         </div>
         <div class="alert-pill">🚨 Estar en aeropuerto 12:30 AM · Salir de casa 10:00 PM del 17</div>
     </div>
-
     <div class="stopover-banner">🏙️ STOPOVER EN PANAMÁ · 1 noche (18 → 19 agosto)</div>
-
     <div class="flight-card">
         <div class="flight-tag">Vuelo 2 · Miércoles 19 Agosto</div>
         <div class="flight-route">
@@ -825,7 +514,7 @@
             <div class="route-line"><hr><span>✈</span><hr></div>
             <div class="airport-code">PUJ</div>
         </div>
-        <div style="font-size:13px; color:#475569;">Panamá → Punta Cana · CM 241 Economy</div>
+        <div style="font-size:13px;color:var(--txt2);">Panamá → Punta Cana · CM 241 Economy</div>
         <div class="flight-meta">
             <div class="meta-item"><strong>Salida</strong>9:09 AM</div>
             <div class="meta-item"><strong>Llegada</strong>12:49 PM</div>
@@ -834,37 +523,35 @@
         </div>
         <div class="tip-pill">🏖️ ¡Bienvenidos al Moon Palace The Grand!</div>
     </div>
-
     <div class="flight-card" style="border-left-color:#dc2626;">
         <div class="flight-tag" style="background:linear-gradient(135deg,#dc2626,#991b1b);">Regreso · Domingo 23 Agosto</div>
         <div class="flight-route">
-            <div class="airport-code" style="color:#991b1b;">PUJ</div>
+            <div class="airport-code" style="color:#dc2626;">PUJ</div>
             <div class="route-line"><hr><span>✈</span><hr></div>
-            <div class="airport-code" style="color:#991b1b;">PTY</div>
+            <div class="airport-code" style="color:#dc2626;">PTY</div>
             <div class="route-line"><hr><span>✈</span><hr></div>
-            <div class="airport-code" style="color:#991b1b;">GUA</div>
+            <div class="airport-code" style="color:#dc2626;">GUA</div>
         </div>
         <div class="flight-meta">
             <div class="meta-item"><strong>CM 178 Salida</strong>11:46 AM PUJ</div>
             <div class="meta-item"><strong>CM 178 Llega</strong>1:29 PM PTY</div>
             <div class="meta-item"><strong>Escala PTY</strong>7h 52min</div>
-            <div class="meta-item"><strong>CM 496 Llegada GUA</strong>10:43 PM</div>
+            <div class="meta-item"><strong>CM 496 GUA</strong>10:43 PM</div>
         </div>
-        <div class="tip-pill">⏰ Aprovechar escala: tour Casco Viejo o Albrook Mall</div>
+        <div class="tip-pill">⏰ Escala: tour Casco Viejo o Albrook Mall</div>
     </div>
 </div></div>
 
 <div class="sep"></div>
 
 <!-- DIAS -->
-<div id="dias" style="background:white;">
+<div id="dias" style="background:var(--surface);">
 <div class="section">
     <div class="section-header">
         <div class="section-icon yellow">📅</div>
         <div class="section-title">Plan día por día <small>6 días de aventura</small></div>
     </div>
 
-    <!-- DÍA 1 -->
     <div class="day-card">
         <div class="day-head d1">
             <div class="day-number">Día 1 · Martes 18 Agosto</div>
@@ -885,7 +572,6 @@
         </div>
     </div>
 
-    <!-- DÍA 2 -->
     <div class="day-card">
         <div class="day-head d2">
             <div class="day-number">Día 2 · Miércoles 19 Agosto</div>
@@ -907,7 +593,6 @@
         </div>
     </div>
 
-    <!-- DÍA 3 -->
     <div class="day-card">
         <div class="day-head d3">
             <div class="day-number">Día 3 · Jueves 20 Agosto</div>
@@ -929,11 +614,10 @@
         </div>
     </div>
 
-    <!-- DÍA 4 -->
     <div class="day-card">
         <div class="day-head d4">
             <div class="day-number">Día 4 · Viernes 21 Agosto</div>
-            <div class="day-title">Resort & Relax Total</div>
+            <div class="day-title">Resort &amp; Relax Total</div>
             <div class="day-sub">Surf, spa y gastronomía 🧘</div>
             <div class="day-emoji">💆</div>
         </div>
@@ -951,7 +635,6 @@
         </div>
     </div>
 
-    <!-- DÍA 5 -->
     <div class="day-card">
         <div class="day-head d5">
             <div class="day-number">Día 5 · Sábado 22 Agosto</div>
@@ -972,7 +655,6 @@
         </div>
     </div>
 
-    <!-- DÍA 6 -->
     <div class="day-card">
         <div class="day-head d6">
             <div class="day-number">Día 6 · Domingo 23 Agosto</div>
@@ -996,18 +678,16 @@
 <div class="sep"></div>
 
 <!-- RESTAURANTES -->
-<div id="restaurantes" style="background:#f8fafc;">
+<div id="restaurantes" style="background:var(--bg);">
 <div class="section">
     <div class="section-header">
         <div class="section-icon green">🍽️</div>
         <div class="section-title">Guía de restaurantes <small>All-inclusive + Palace Credits</small></div>
     </div>
-
     <div class="resto-banner">
         <h3>💳 USA TUS $1,500 PALACE CREDITS EN ESTO</h3>
-        <p style="font-size:13px; margin-top:6px; opacity:.9;">No se transfieren ni devuelven — ¡aprovéchalos al máximo!</p>
+        <p style="font-size:13px;margin-top:6px;opacity:.9;">No se transfieren ni devuelven — ¡aprovéchalos al máximo!</p>
     </div>
-
     <div class="resto-grid" style="margin-bottom:28px;">
         <div class="resto-card premium"><h4>🥩 JC Prime Room 84</h4><p>Steakhouse premium (adultos)</p><span class="badge gold">💰 Credits</span></div>
         <div class="resto-card premium"><h4>🔥 Fuego by Grilling Bastards</h4><p>Parrilla premium</p><span class="badge gold">💰 Credits</span></div>
@@ -1015,8 +695,7 @@
         <div class="resto-card premium"><h4>🎳 The Ninth Pin</h4><p>Bowling y bar</p><span class="badge gold">💰 Credits</span></div>
         <div class="resto-card premium"><h4>⛳ Greg Norman Golf</h4><p>Green fees</p><span class="badge gold">💰 Credits</span></div>
     </div>
-
-    <h3 style="font-size:16px; font-weight:700; margin-bottom:14px; color:#1e293b;">✅ Incluidos en el All-Inclusive:</h3>
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:var(--txt);">✅ Incluidos en el All-Inclusive:</h3>
     <div class="resto-grid">
         <div class="resto-card"><h4>🌍 Casa Macao</h4><p>Buffet int'l con estaciones en vivo</p><span class="badge blue">All-in</span></div>
         <div class="resto-card"><h4>🌮 La Cantina</h4><p>Mexicano festivo + tequila</p><span class="badge blue">All-in</span></div>
@@ -1033,16 +712,162 @@
         <div class="resto-card"><h4>🍔 League's</h4><p>Sports bar</p><span class="badge blue">All-in</span></div>
         <div class="resto-card"><h4>🧚 WonderWoods</h4><p>Para los niños</p><span class="badge blue">All-in</span></div>
     </div>
-
-    <div class="alert-pill" style="margin-top:20px; font-size:13px;">
+    <div class="alert-pill" style="margin-top:20px;font-size:13px;">
         ⚠️ <strong>Dress Code cenas:</strong> Pantalón largo · NO chanclas · NO camisetas sin mangas
     </div>
 </div></div>
 
 <div class="sep"></div>
 
+<!-- PALACE CREDITS TRACKER -->
+<div id="credits" style="background:var(--surface);">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon amber">💳</div>
+        <div class="section-title">Rastreador Palace Credits <small>$1,500 USD — no se devuelven</small></div>
+    </div>
+
+    <!-- Wallet card -->
+    <div class="pc-wallet">
+        <div class="pc-wallet-top">
+            <div>
+                <div class="pc-wallet-label">Saldo disponible</div>
+                <div class="pc-balance" id="pc-balance"><small>$</small><span id="pc-bal-num">1,500</span></div>
+                <div class="pc-used-label">Asignado: $<span id="pc-used-num">0</span> USD</div>
+            </div>
+            <button class="pc-reset-btn" onclick="pcReset()">↺ Reiniciar</button>
+        </div>
+        <div class="pc-bar-wrap">
+            <div class="pc-bar-labels">
+                <span>$0</span><span>$750</span><span>$1,500</span>
+            </div>
+            <div class="pc-bar-bg">
+                <div class="pc-bar-fill" id="pc-bar" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-warning" id="pc-warning">
+        ⚠️ ¡Cuidado! Has asignado más de $1,500 — ajusta los montos para no exceder tu presupuesto de credits.
+    </div>
+
+    <!-- Activities -->
+    <div class="pc-activities" id="pc-activities">
+        <!-- generated by JS -->
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- DINNER PLANNER -->
+<div id="cenas" style="background:var(--bg);">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon purple">🍷</div>
+        <div class="section-title">Planificador de cenas <small>4 noches en el Moon Palace</small></div>
+    </div>
+
+    <div class="dinner-grid" id="dinner-grid">
+        <!-- generated by JS -->
+    </div>
+
+    <div class="dinner-summary">
+        <div class="dinner-summary-item">
+            <div class="dinner-summary-num" id="din-reservadas">0/4</div>
+            <div class="dinner-summary-lbl">Noches reservadas</div>
+        </div>
+        <div class="dinner-summary-item">
+            <div class="dinner-summary-num" id="din-credits">$0</div>
+            <div class="dinner-summary-lbl">Credits en cenas</div>
+        </div>
+        <div class="dinner-summary-item">
+            <div class="dinner-summary-num" id="din-gratis">0</div>
+            <div class="dinner-summary-lbl">All-inclusive</div>
+        </div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- CLIMA -->
+<div id="clima" style="background:var(--surface);">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon sky">🌤️</div>
+        <div class="section-title">Clima Punta Cana <small>Promedios históricos · Agosto</small></div>
+    </div>
+
+    <div class="weather-alert">
+        🌀 <strong>Temporada de huracanes:</strong> Agosto es temporada activa, pero los huracanes raras veces tocan Punta Cana directamente. Monitorea el sitio <strong>nhc.noaa.gov</strong> a partir de agosto. Lo más común son lluvias vespertinas de 20–30 min.
+    </div>
+
+    <div class="weather-grid">
+        <div class="weather-card cloud">
+            <div class="weather-icon">⛅</div>
+            <div class="weather-date">Mié 19 Ago</div>
+            <div class="weather-desc">Parcialmente nublado</div>
+            <div class="weather-stats">
+                <div class="weather-stat"><span>🌡 Temp</span><span>31°C / 88°F</span></div>
+                <div class="weather-stat"><span>🌧 Lluvia</span><span>30%</span></div>
+                <div class="weather-stat"><span>💧 Humedad</span><span>82%</span></div>
+                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
+            </div>
+        </div>
+        <div class="weather-card sun">
+            <div class="weather-icon">☀️</div>
+            <div class="weather-date">Jue 20 Ago · Isla Saona</div>
+            <div class="weather-desc">Soleado por la mañana</div>
+            <div class="weather-stats">
+                <div class="weather-stat"><span>🌡 Temp</span><span>32°C / 90°F</span></div>
+                <div class="weather-stat"><span>🌧 Lluvia</span><span>20%</span></div>
+                <div class="weather-stat"><span>💧 Humedad</span><span>80%</span></div>
+                <div class="weather-stat"><span>🌊 Mar</span><span>29°C calmo</span></div>
+            </div>
+        </div>
+        <div class="weather-card cloud">
+            <div class="weather-icon">🌤</div>
+            <div class="weather-date">Vie 21 Ago · Resort</div>
+            <div class="weather-desc">Variable con sol</div>
+            <div class="weather-stats">
+                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
+                <div class="weather-stat"><span>🌧 Lluvia</span><span>40%</span></div>
+                <div class="weather-stat"><span>💧 Humedad</span><span>84%</span></div>
+                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
+            </div>
+        </div>
+        <div class="weather-card rain">
+            <div class="weather-icon">🌦</div>
+            <div class="weather-date">Sáb 22 Ago</div>
+            <div class="weather-desc">Chubascos vespertinos</div>
+            <div class="weather-stats">
+                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
+                <div class="weather-stat"><span>🌧 Lluvia</span><span>55%</span></div>
+                <div class="weather-stat"><span>💧 Humedad</span><span>86%</span></div>
+                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
+            </div>
+        </div>
+        <div class="weather-card cloud">
+            <div class="weather-icon">⛅</div>
+            <div class="weather-date">Dom 23 Ago · Regreso</div>
+            <div class="weather-desc">Nublado, salida temprano</div>
+            <div class="weather-stats">
+                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
+                <div class="weather-stat"><span>🌧 Lluvia</span><span>40%</span></div>
+                <div class="weather-stat"><span>💧 Humedad</span><span>83%</span></div>
+                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="weather-tip">
+        💡 <strong>Tips de clima:</strong> Las lluvias de agosto en Punta Cana son cortas (20–30 min) y generalmente vespertinas. Planifica actividades al aire libre en la mañana. La Isla Saona (Jue 20) tiene el mejor pronóstico del viaje. Lleva una camiseta impermeable ligera. El sol cae fuerte 10 AM – 2 PM — aplica protector solar doble ración esas horas.
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
 <!-- ALERTAS -->
-<div id="alertas" style="background:white;">
+<div id="alertas" style="background:var(--bg);">
 <div class="section">
     <div class="section-header">
         <div class="section-icon red">⚠️</div>
@@ -1093,7 +918,7 @@
 <div class="sep"></div>
 
 <!-- CHECKLIST -->
-<div id="checklist" style="background:#f8fafc;">
+<div id="checklist" style="background:var(--surface);">
 <div class="section checklist-section">
     <div class="section-header">
         <div class="section-icon teal">✅</div>
@@ -1101,7 +926,7 @@
     </div>
 
     <h3>📄 Documentos críticos</h3>
-    <div class="check-grid" id="docs-grid">
+    <div class="check-grid">
         <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">5 Pasaportes válidos (6 meses mín)</span></div>
         <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Boletos impresos (Copa Airlines)</span></div>
         <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Confirmación hotel Moon Palace ✓</span></div>
@@ -1136,7 +961,7 @@
 <div class="sep"></div>
 
 <!-- CONTACTOS -->
-<div id="contactos" style="background:white;">
+<div id="contactos" style="background:var(--bg);">
 <div class="section">
     <div class="section-header">
         <div class="section-icon blue">📞</div>
@@ -1169,7 +994,7 @@
 <div class="sep"></div>
 
 <!-- TIPS -->
-<div id="tips" style="background:#f8fafc;">
+<div id="tips" style="background:var(--surface);">
 <div class="section">
     <div class="section-header">
         <div class="section-icon green">💡</div>
@@ -1185,10 +1010,8 @@
         <div class="tip-card"><div class="tip-num">07</div><div class="tip-txt">Power banks siempre cargados — muchas fotos y videos para el recuerdo</div></div>
         <div class="tip-card"><div class="tip-num">08</div><div class="tip-txt">¡Todo está incluido — relájate, disfruta sin preocuparte por el costo!</div></div>
     </div>
-
-    <!-- Budget summary -->
     <div class="budget-card" style="margin-top:32px;">
-        <p style="font-size:13px; opacity:.8; letter-spacing:1px; text-transform:uppercase; font-weight:700;">Presupuesto total estimado</p>
+        <p style="font-size:13px;opacity:.8;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Presupuesto total estimado</p>
         <div class="amount">$8,433 – $9,483 USD</div>
         <small>5 personas · Hotel all-inclusive · Vuelos · Tours · Extras</small>
     </div>
@@ -1199,125 +1022,319 @@
     <h2>¡Que tengan un viaje</h2>
     <h2>INOLVIDABLE!</h2>
     <div class="wave-icons">🌴 ☀️ 🏖️ 🌊 🐚</div>
-    <p style="font-size:18px; font-weight:700;">Familia Estrada García</p>
+    <p style="font-size:18px;font-weight:700;">Familia Estrada García</p>
     <p style="margin-top:6px;">Punta Cana, República Dominicana · Agosto 2026</p>
 </div>
 
 <footer>
     <p><strong>Familia Estrada García · Punta Cana 2026</strong></p>
     <p>Para imprimir: Ctrl+P (Windows) / Cmd+P (Mac) → Guardar como PDF</p>
-    <p style="margin-top:8px; opacity:.4;">Plan generado Mayo 2026</p>
+    <p style="margin-top:8px;opacity:.4;">Plan generado Mayo 2026</p>
 </footer>
 
-<!-- FAB -->
-<button class="fab" onclick="window.print()">📄 Guardar PDF</button>
+<!-- FABs -->
+<div class="fab-group">
+    <button class="fab share-fab" onclick="openShare()">🔗 Compartir</button>
+    <button class="fab" onclick="window.print()">📄 PDF</button>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="share-modal" onclick="closeShareOutside(event)">
+    <div class="modal">
+        <h3>🔗 Compartir guía</h3>
+        <p>Escanea el QR o copia el link para compartir con la familia</p>
+        <div class="modal-qr">
+            <img id="qr-img" src="" alt="QR Code">
+        </div>
+        <div class="modal-url" id="share-url">https://warosc.github.io/punta-cana-2026/</div>
+        <div class="modal-btns">
+            <button class="modal-btn copy" onclick="copyLink()">📋 Copiar link</button>
+            <button class="modal-btn wa"   onclick="shareWhatsApp()">💬 Enviar por WhatsApp</button>
+            <button class="modal-btn close" onclick="closeShare()">✕ Cerrar</button>
+        </div>
+    </div>
+</div>
 
 <script>
-// ─── COUNTDOWN ─────────────────────────────────────────────
-// Salida de casa: 17 Agosto 2026, 22:00 (UTC-6, Guatemala)
-const TARGET = new Date('2026-08-17T22:00:00-06:00').getTime();
-// Plan creation reference: 18 Mayo 2026 (start date for progress bar)
+// ─── CONFIG ─────────────────────────────────────────────────
+const SHARE_URL = 'https://warosc.github.io/punta-cana-2026/';
+const TOTAL_CREDITS = 1500;
+const TARGET     = new Date('2026-08-17T22:00:00-06:00').getTime();
 const PLAN_START = new Date('2026-05-18T00:00:00-06:00').getTime();
 
+// ─── DARK MODE ───────────────────────────────────────────────
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️';
+    try { localStorage.setItem('pc_theme', isDark ? 'light' : 'dark'); } catch(e){}
+}
+function loadTheme() {
+    try {
+        const t = localStorage.getItem('pc_theme');
+        if (t) {
+            document.documentElement.setAttribute('data-theme', t);
+            document.getElementById('theme-btn').textContent = t === 'dark' ? '☀️' : '🌙';
+        }
+    } catch(e){}
+}
+
+// ─── COUNTDOWN ──────────────────────────────────────────────
 function pad(n) { return String(n).padStart(2, '0'); }
-
 function updateCountdown() {
-    const now = Date.now();
+    const now  = Date.now();
     const diff = TARGET - now;
-
     if (diff <= 0) {
         document.getElementById('cd-label').style.display = 'none';
         document.getElementById('countdown-grid').style.display = 'none';
         document.getElementById('arrived-msg').style.display = 'block';
         return;
     }
-
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-
-    document.getElementById('cd-days').textContent  = pad(days);
-    document.getElementById('cd-hours').textContent = pad(hours);
-    document.getElementById('cd-mins').textContent  = pad(mins);
-    document.getElementById('cd-secs').textContent  = pad(secs);
-
-    // Progress bar: from plan creation → departure
-    const total = TARGET - PLAN_START;
-    const elapsed = now - PLAN_START;
-    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+    const pct = Math.min(100, Math.max(0, ((now - PLAN_START) / (TARGET - PLAN_START)) * 100));
     document.getElementById('progress-fill').style.width = pct.toFixed(1) + '%';
-    document.getElementById('progress-pct').textContent = pct.toFixed(0) + '%';
+    document.getElementById('progress-pct').textContent  = pct.toFixed(0) + '%';
 }
-
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ─── CHECKLIST ─────────────────────────────────────────────
+// ─── PALACE CREDITS ─────────────────────────────────────────
+const PC_ACTIVITIES = [
+    { id:'jcprime',  icon:'🥩', name:'JC Prime Room 84',         desc:'Steakhouse premium — cena para 5', default:350, step:50 },
+    { id:'fuego',    icon:'🔥', name:'Fuego by Grilling Bastards',desc:'Carne a la parrilla premium',      default:350, step:50 },
+    { id:'spa',      icon:'💆', name:'O Spa',                     desc:'Masajes + circuito hidroterapia',  default:400, step:50 },
+    { id:'golf',     icon:'⛳', name:'Greg Norman Golf',          desc:'Green fees (1–2 personas)',        default:200, step:50 },
+    { id:'bowling',  icon:'🎳', name:'The Ninth Pin',             desc:'Bowling + bar',                   default:100, step:25 },
+    { id:'extra',    icon:'🎁', name:'Extras / Tienda',           desc:'Souvenirs, snacks premium, otros', default:100, step:25 },
+];
+let pcAmounts = {};
+
+function pcSave() {
+    try { localStorage.setItem('pc_amounts', JSON.stringify(pcAmounts)); } catch(e){}
+}
+function pcLoad() {
+    try {
+        const s = localStorage.getItem('pc_amounts');
+        if (s) pcAmounts = JSON.parse(s);
+    } catch(e){}
+}
+function pcReset() {
+    PC_ACTIVITIES.forEach(a => { pcAmounts[a.id] = 0; });
+    pcSave(); pcRender();
+}
+function pcChange(id, delta) {
+    const act  = PC_ACTIVITIES.find(a => a.id === id);
+    const cur  = pcAmounts[id] || 0;
+    pcAmounts[id] = Math.max(0, cur + delta * act.step);
+    pcSave(); pcRender();
+}
+function pcRender() {
+    const total = Object.values(pcAmounts).reduce((s,v) => s+v, 0);
+    const remaining = TOTAL_CREDITS - total;
+    const pct = Math.min(100, (total / TOTAL_CREDITS) * 100);
+
+    document.getElementById('pc-bal-num').textContent = Math.max(0, remaining).toLocaleString();
+    document.getElementById('pc-used-num').textContent = total.toLocaleString();
+    document.getElementById('pc-bar').style.width = pct + '%';
+
+    const barEl = document.getElementById('pc-bar');
+    if (pct < 60)       barEl.style.background = 'linear-gradient(90deg,#fbbf24,#f59e0b)';
+    else if (pct < 85)  barEl.style.background = 'linear-gradient(90deg,#f97316,#ea580c)';
+    else                barEl.style.background = 'linear-gradient(90deg,#dc2626,#991b1b)';
+
+    const warn = document.getElementById('pc-warning');
+    warn.classList.toggle('show', total > TOTAL_CREDITS);
+
+    PC_ACTIVITIES.forEach(a => {
+        const el = document.getElementById('pc-amt-' + a.id);
+        if (el) el.textContent = '$' + (pcAmounts[a.id] || 0).toLocaleString();
+    });
+
+    // sync dinner credits display
+    updateDinnerSummary();
+}
+function pcBuild() {
+    const wrap = document.getElementById('pc-activities');
+    wrap.innerHTML = PC_ACTIVITIES.map(a => `
+        <div class="pc-activity">
+            <div class="pc-activity-icon">${a.icon}</div>
+            <div class="pc-activity-info">
+                <div class="pc-activity-name">${a.name}</div>
+                <div class="pc-activity-desc">${a.desc}</div>
+            </div>
+            <div class="pc-activity-ctrl">
+                <button class="pc-minus" onclick="pcChange('${a.id}',-1)">−</button>
+                <div class="pc-amount" id="pc-amt-${a.id}">$0</div>
+                <button class="pc-plus"  onclick="pcChange('${a.id}',+1)">+</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ─── DINNER PLANNER ─────────────────────────────────────────
+const NIGHTS = [
+    { date:'19 Ago', day:'Miércoles · Llegada', label:'Noche 1' },
+    { date:'20 Ago', day:'Jueves · Isla Saona', label:'Noche 2' },
+    { date:'21 Ago', day:'Viernes · Relax',     label:'Noche 3' },
+    { date:'22 Ago', day:'Sábado · Compras',    label:'Noche 4' },
+];
+const FREE_RESTOS = [
+    '— Sin elegir —',
+    '🌍 Casa Macao (Buffet int\'l)',
+    '🌮 La Cantina (Mexicano)',
+    '🍕 Tavola (Italiano)',
+    '🇫🇷 Le Jiraf (Francés)',
+    '🇬🇷 Nikos (Griego)',
+    '🇧🇷 Carvao (Brasileño)',
+    '🌴 Madremía (Latinoamericano)',
+    '🥙 Habibi (Oriente Medio)',
+    '🍱 Jade Izakaya (Japonés)',
+    '🍛 Agra (Indio)',
+    '🍢 Momo Teppan (Teppanyaki)',
+    '🏖️ Joe\'s Deck (Playa)',
+    '🍔 League\'s (Sports bar)',
+];
+const CREDIT_RESTOS = [
+    '🥩 JC Prime Room 84 (Credits)',
+    '🔥 Fuego by Grilling Bastards (Credits)',
+];
+let dinnerPicks = {};
+
+function dinnerSave() {
+    try { localStorage.setItem('pc_dinner', JSON.stringify(dinnerPicks)); } catch(e){}
+}
+function dinnerLoad() {
+    try {
+        const s = localStorage.getItem('pc_dinner');
+        if (s) dinnerPicks = JSON.parse(s);
+    } catch(e){}
+}
+function dinnerChange(nightIdx, val) {
+    dinnerPicks[nightIdx] = val;
+    dinnerSave();
+    updateDinnerSummary();
+    updateDinnerTags();
+}
+function isCredits(val) { return val && (val.includes('JC Prime') || val.includes('Fuego')); }
+function updateDinnerTags() {
+    NIGHTS.forEach((_, i) => {
+        const tag = document.getElementById('din-tag-' + i);
+        const val = dinnerPicks[i] || '';
+        if (!val || val === '— Sin elegir —') {
+            tag.textContent = ''; tag.className = 'dinner-tag none';
+        } else if (isCredits(val)) {
+            tag.textContent = '💳 Palace Credits'; tag.className = 'dinner-tag credits';
+        } else {
+            tag.textContent = '✅ All-inclusive'; tag.className = 'dinner-tag free';
+        }
+    });
+}
+function updateDinnerSummary() {
+    const vals = Object.values(dinnerPicks).filter(v => v && v !== '— Sin elegir —');
+    const creditNights = vals.filter(isCredits).length;
+    const freeNights   = vals.filter(v => !isCredits(v)).length;
+    document.getElementById('din-reservadas').textContent = vals.length + '/4';
+    document.getElementById('din-credits').textContent    = creditNights > 0 ? '~$' + (creditNights * 350) : '$0';
+    document.getElementById('din-gratis').textContent     = freeNights;
+}
+function dinnerBuild() {
+    const grid = document.getElementById('dinner-grid');
+    grid.innerHTML = NIGHTS.map((n, i) => `
+        <div class="dinner-night">
+            <div class="dinner-date">${n.label} · ${n.date}</div>
+            <div class="dinner-day">${n.day}</div>
+            <select onchange="dinnerChange(${i}, this.value)">
+                ${FREE_RESTOS.map(r => `<option value="${r}" ${dinnerPicks[i]===r?'selected':''}>${r}</option>`).join('')}
+                <optgroup label="── 💰 Con Palace Credits ──">
+                ${CREDIT_RESTOS.map(r => `<option value="${r}" ${dinnerPicks[i]===r?'selected':''}>${r}</option>`).join('')}
+                </optgroup>
+            </select>
+            <span class="dinner-tag none" id="din-tag-${i}"></span>
+        </div>
+    `).join('');
+    updateDinnerTags();
+    updateDinnerSummary();
+}
+
+// ─── CHECKLIST ──────────────────────────────────────────────
 function toggleCheck(el) {
     el.classList.toggle('checked');
-    const box = el.querySelector('.check-box');
-    box.textContent = el.classList.contains('checked') ? '✓' : '';
-    // Persist in localStorage
+    el.querySelector('.check-box').textContent = el.classList.contains('checked') ? '✓' : '';
     saveChecklist();
 }
-
 function saveChecklist() {
-    const items = document.querySelectorAll('.check-item');
-    const state = [];
-    items.forEach((el, i) => state.push(el.classList.contains('checked')));
-    try { localStorage.setItem('puntacana_checklist', JSON.stringify(state)); } catch(e){}
+    const state = [...document.querySelectorAll('.check-item')].map(e => e.classList.contains('checked'));
+    try { localStorage.setItem('pc_checklist', JSON.stringify(state)); } catch(e){}
 }
-
 function loadChecklist() {
     try {
-        const state = JSON.parse(localStorage.getItem('puntacana_checklist') || '[]');
-        const items = document.querySelectorAll('.check-item');
-        items.forEach((el, i) => {
-            if (state[i]) {
-                el.classList.add('checked');
-                el.querySelector('.check-box').textContent = '✓';
-            }
+        const state = JSON.parse(localStorage.getItem('pc_checklist') || '[]');
+        document.querySelectorAll('.check-item').forEach((el, i) => {
+            if (state[i]) { el.classList.add('checked'); el.querySelector('.check-box').textContent = '✓'; }
         });
     } catch(e){}
 }
 
-// ─── NAV ACTIVE STATE ───────────────────────────────────────
+// ─── SHARE MODAL ────────────────────────────────────────────
+function openShare() {
+    const url = SHARE_URL;
+    const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&color=0ea5e9&bgcolor=ffffff&data=' + encodeURIComponent(url);
+    document.getElementById('qr-img').src = qrUrl;
+    document.getElementById('share-url').textContent = url;
+    document.getElementById('share-modal').classList.add('open');
+}
+function closeShare() { document.getElementById('share-modal').classList.remove('open'); }
+function closeShareOutside(e) { if (e.target === document.getElementById('share-modal')) closeShare(); }
+function copyLink() {
+    navigator.clipboard.writeText(SHARE_URL).then(() => {
+        const btn = event.target;
+        btn.textContent = '✅ ¡Copiado!';
+        setTimeout(() => { btn.textContent = '📋 Copiar link'; }, 2000);
+    }).catch(() => {
+        prompt('Copia este link:', SHARE_URL);
+    });
+}
+function shareWhatsApp() {
+    const msg = '🏝️ *Punta Cana 2026* — Guía de vacaciones Familia Estrada García\n' + SHARE_URL;
+    window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ─── NAV ACTIVE ──────────────────────────────────────────────
 function updateNav() {
-    const sections = ['inicio','vuelos','dias','restaurantes','alertas','checklist','contactos','tips'];
-    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = ['inicio','vuelos','dias','restaurantes','credits','cenas','clima','alertas','checklist','contactos','tips'];
     let active = 'inicio';
     sections.forEach(id => {
         const el = document.getElementById(id);
-        if (!el) return;
-        if (window.scrollY >= el.offsetTop - 80) active = id;
+        if (el && window.scrollY >= el.offsetTop - 80) active = id;
     });
-    navLinks.forEach(l => {
+    document.querySelectorAll('.nav-link').forEach(l => {
         l.classList.toggle('active', l.getAttribute('href') === '#' + active);
     });
 }
 
-// ─── SCROLL ANIMATIONS ─────────────────────────────────────
+// ─── SCROLL ANIMATIONS ──────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-        if (e.isIntersecting) {
-            e.target.style.opacity = '1';
-            e.target.style.transform = 'translateY(0)';
-        }
+        if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
     });
 }, { threshold: 0.08 });
 
+// ─── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
+    pcLoad(); pcBuild(); pcAmounts = Object.fromEntries(PC_ACTIVITIES.map(a => [a.id, pcAmounts[a.id] ?? a.default]));
+    pcRender();
+    dinnerLoad(); dinnerBuild();
     loadChecklist();
-    const cards = document.querySelectorAll('.day-card, .flight-card, .resto-card, .tip-card, .contact-card, .alert-row');
-    cards.forEach(c => {
-        c.style.opacity = '0';
-        c.style.transform = 'translateY(18px)';
-        c.style.transition = 'opacity .5s ease, transform .5s ease';
+    document.querySelectorAll('.day-card,.flight-card,.resto-card,.tip-card,.contact-card,.alert-row,.weather-card,.pc-activity,.dinner-night').forEach(c => {
+        c.style.opacity='0'; c.style.transform='translateY(18px)'; c.style.transition='opacity .5s ease,transform .5s ease';
         observer.observe(c);
     });
 });
-
 window.addEventListener('scroll', updateNav, { passive: true });
 </script>
 </body>
