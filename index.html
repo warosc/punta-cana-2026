@@ -90,31 +90,86 @@
 
         /* ─── NAV ─────────────────────────────────────────── */
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
             background: var(--nav-bg);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(14,165,233,0.15);
-            padding: 0 12px; height: 56px;
-            display: flex; align-items: center; gap: 5px;
-            overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14,165,233,0.12);
+            padding: 0 16px; height: 56px;
+            display: flex; align-items: center; justify-content: space-between;
         }
-        nav::-webkit-scrollbar { display: none; }
-        .nav-link {
-            white-space: nowrap; padding: 6px 12px; border-radius: 20px;
-            font-size: 12px; font-weight: 600; color: var(--deep);
-            text-decoration: none; border: 1.5px solid transparent;
-            transition: all .25s; flex-shrink: 0;
+        .nav-brand {
+            font-weight: 800; font-size: 15px; color: var(--deep);
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+            letter-spacing: -.3px;
         }
-        [data-theme="dark"] .nav-link { color: #94a3b8; }
-        .nav-link:hover, .nav-link.active { background: var(--sky); color: white; border-color: var(--sky); }
-        .nav-spacer { flex: 1; }
+        [data-theme="dark"] .nav-brand { color: #7dd3fc; }
+        .nav-brand span { opacity: .6; font-weight: 400; font-size: 13px; }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
         .nav-btn {
-            flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+            width: 38px; height: 38px; border-radius: 50%;
             border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 16px; transition: transform .2s;
-            background: var(--surface2);
+            font-size: 17px; transition: transform .2s, background .2s;
+            background: var(--surface2); flex-shrink: 0;
         }
-        .nav-btn:hover { transform: scale(1.1); }
+        .nav-btn:hover  { transform: scale(1.1); }
+        .nav-btn:active { transform: scale(.93); }
+
+        /* ─── MENU OVERLAY ─────────────────────────────────── */
+        .menu-overlay {
+            position: fixed; inset: 0; z-index: 190;
+            background: rgba(0,0,0,.45);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            opacity: 0; pointer-events: none;
+            transition: opacity .3s;
+        }
+        .menu-overlay.open { opacity: 1; pointer-events: all; }
+
+        .menu-panel {
+            position: fixed; top: 56px; left: 0; right: 0; z-index: 195;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 0 24px 24px;
+            padding: 16px 16px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+            transform: translateY(-110%);
+            transition: transform .35s cubic-bezier(.4,0,.2,1);
+        }
+        .menu-panel.open { transform: translateY(0); }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        @media (max-width: 380px) {
+            .menu-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .menu-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 5px; padding: 12px 6px; border-radius: 16px;
+            text-decoration: none; font-size: 11px; font-weight: 600;
+            color: var(--txt2); background: var(--surface2);
+            transition: background .2s, color .2s, transform .15s;
+            text-align: center; line-height: 1.3;
+        }
+        .menu-item:active { transform: scale(.93); }
+        .menu-item:hover, .menu-item.active {
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            color: white;
+        }
+        .menu-item-icon { font-size: 22px; }
+
+        /* hamburger → X animation */
+        .ham { display: flex; flex-direction: column; gap: 5px; padding: 4px; }
+        .ham span {
+            display: block; width: 20px; height: 2px; border-radius: 2px;
+            background: var(--txt2); transition: transform .3s, opacity .3s;
+            transform-origin: center;
+        }
+        .ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         /* ─── HERO ────────────────────────────────────────── */
         #inicio {
@@ -472,7 +527,7 @@
         .sep { height:1px; background:linear-gradient(90deg,transparent,var(--sep-clr),transparent); margin:0 20px; }
 
         @media print {
-            nav, .fab-group, .modal-overlay { display:none !important; }
+            nav, .fab-group, .modal-overlay, .menu-panel, .menu-overlay { display:none !important; }
             body { background:white; }
             #inicio { min-height:unset; padding-top:20px; }
         }
@@ -482,20 +537,36 @@
 
 <!-- NAV -->
 <nav id="navbar">
-    <a href="#inicio"    class="nav-link active">🏝 Inicio</a>
-    <a href="#vuelos"    class="nav-link">✈️ Vuelos</a>
-    <a href="#dias"      class="nav-link">📅 Días</a>
-    <a href="#restaurantes" class="nav-link">🍽 Comida</a>
-    <a href="#credits"   class="nav-link">💳 Credits</a>
-    <a href="#cenas"     class="nav-link">🍷 Cenas</a>
-    <a href="#clima"     class="nav-link">🌤 Clima</a>
-    <a href="#alertas"   class="nav-link">⚠️ Alertas</a>
-    <a href="#checklist" class="nav-link">✅ Check</a>
-    <a href="#contactos" class="nav-link">📞 SOS</a>
-    <a href="#tips"      class="nav-link">💡 Tips</a>
-    <div class="nav-spacer"></div>
-    <button class="nav-btn" id="theme-btn" title="Cambiar tema" onclick="toggleTheme()">🌙</button>
+    <a href="#inicio" class="nav-brand">🏝 <span>Punta Cana 2026</span></a>
+    <div class="nav-actions">
+        <button class="nav-btn" id="theme-btn" title="Modo noche" onclick="toggleTheme()">🌙</button>
+        <button class="nav-btn" id="menu-btn" title="Menú" onclick="toggleMenu()" aria-label="Abrir menú">
+            <div class="ham" id="ham-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </button>
+    </div>
 </nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
+
+<!-- MENU PANEL -->
+<div class="menu-panel" id="menu-panel">
+    <div class="menu-grid">
+        <a href="#inicio"       class="menu-item active" onclick="closeMenu()"><span class="menu-item-icon">🏝</span>Inicio</a>
+        <a href="#vuelos"       class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">✈️</span>Vuelos</a>
+        <a href="#dias"         class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">📅</span>Días</a>
+        <a href="#restaurantes" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🍽</span>Comida</a>
+        <a href="#credits"      class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">💳</span>Credits</a>
+        <a href="#cenas"        class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🍷</span>Cenas</a>
+        <a href="#clima"        class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🌤</span>Clima</a>
+        <a href="#alertas"      class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">⚠️</span>Alertas</a>
+        <a href="#checklist"    class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">✅</span>Check</a>
+        <a href="#contactos"    class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">📞</span>SOS</a>
+        <a href="#tips"         class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">💡</span>Tips</a>
+    </div>
+</div>
 
 <!-- HERO -->
 <section id="inicio">
@@ -1053,10 +1124,9 @@
     <p style="margin-top:8px;opacity:.4;">Plan generado Mayo 2026</p>
 </footer>
 
-<!-- FABs -->
+<!-- FAB compartir -->
 <div class="fab-group">
     <button class="fab share-fab" onclick="openShare()">🔗 Compartir</button>
-    <button class="fab" onclick="window.print()">📄 PDF</button>
 </div>
 
 <!-- SHARE MODAL -->
@@ -1324,6 +1394,22 @@ function shareWhatsApp() {
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
 
+// ─── HAMBURGER MENU ──────────────────────────────────────────
+function toggleMenu() {
+    const panel   = document.getElementById('menu-panel');
+    const overlay = document.getElementById('menu-overlay');
+    const ham     = document.getElementById('ham-icon');
+    const isOpen  = panel.classList.contains('open');
+    panel.classList.toggle('open', !isOpen);
+    overlay.classList.toggle('open', !isOpen);
+    ham.classList.toggle('open', !isOpen);
+}
+function closeMenu() {
+    document.getElementById('menu-panel').classList.remove('open');
+    document.getElementById('menu-overlay').classList.remove('open');
+    document.getElementById('ham-icon').classList.remove('open');
+}
+
 // ─── NAV ACTIVE ──────────────────────────────────────────────
 function updateNav() {
     const sections = ['inicio','vuelos','dias','restaurantes','credits','cenas','clima','alertas','checklist','contactos','tips'];
@@ -1332,7 +1418,7 @@ function updateNav() {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 80) active = id;
     });
-    document.querySelectorAll('.nav-link').forEach(l => {
+    document.querySelectorAll('.menu-item').forEach(l => {
         l.classList.toggle('active', l.getAttribute('href') === '#' + active);
     });
 }
