@@ -313,19 +313,41 @@
 
         /* ─── WEATHER ────────────────────────────────────── */
         .weather-alert { background:linear-gradient(135deg,#fef3c7,#fde68a); border-radius:16px; padding:16px 20px; margin-bottom:20px; font-size:13px; font-weight:600; color:#78350f; }
-        .weather-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:20px; }
-        .weather-card { background:var(--surface); border-radius:20px; padding:18px 14px; box-shadow:var(--card-sh); text-align:center; border-top:3px solid; }
-        .weather-card.sun   { border-color:#f59e0b; }
-        .weather-card.cloud { border-color:#94a3b8; }
-        .weather-card.rain  { border-color:#3b82f6; }
-        .weather-icon  { font-size:36px; margin-bottom:8px; }
-        .weather-date  { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--txt2); margin-bottom:4px; }
-        .weather-desc  { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:10px; }
-        .weather-stats { display:flex; flex-direction:column; gap:6px; }
-        .weather-stat  { display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border-radius:8px; padding:5px 10px; font-size:11px; }
-        .weather-stat span:first-child { color:var(--txt2); font-weight:500; }
-        .weather-stat span:last-child  { font-weight:700; color:var(--txt); }
+        .weather-source-badge {
+            display:inline-flex; align-items:center; gap:6px;
+            padding:6px 14px; border-radius:20px; font-size:11px; font-weight:700;
+            margin-bottom:16px;
+        }
+        .weather-source-badge.live { background:#dcfce7; color:#065f46; }
+        .weather-source-badge.avg  { background:#dbeafe; color:#1e40af; }
+        .weather-source-badge.loading { background:var(--surface2); color:var(--txt2); }
+        .weather-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; margin-bottom:20px; }
+        .weather-card {
+            background:var(--surface); border-radius:20px; padding:16px 14px 14px;
+            box-shadow:var(--card-sh); border-top:4px solid #94a3b8; overflow:hidden;
+        }
+        .weather-card.sun   { border-top-color:#f59e0b; }
+        .weather-card.cloud { border-top-color:#94a3b8; }
+        .weather-card.rain  { border-top-color:#3b82f6; }
+        .weather-card.storm { border-top-color:#7c3aed; }
+        .weather-card-top { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+        .weather-icon  { font-size:32px; flex-shrink:0; }
+        .weather-card-meta { flex:1; min-width:0; }
+        .weather-date  { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--txt2); }
+        .weather-desc  { font-size:13px; font-weight:700; color:var(--txt); margin-top:2px; line-height:1.3; }
+        .weather-stats { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+        .weather-stat  {
+            background:var(--surface2); border-radius:8px; padding:7px 8px;
+            display:flex; flex-direction:column; gap:2px;
+        }
+        .ws-label { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.8px; color:var(--txt2); }
+        .ws-value { font-size:13px; font-weight:800; color:var(--txt); white-space:nowrap; }
+        .ws-value.hot    { color:#f59e0b; }
+        .ws-value.rain   { color:#3b82f6; }
+        .ws-value.humid  { color:#06b6d4; }
+        .ws-value.sea    { color:#0ea5e9; }
         .weather-tip { background:linear-gradient(135deg,var(--surface2),var(--surface)); border-radius:16px; padding:16px 20px; font-size:13px; color:var(--txt2); line-height:1.7; border-left:4px solid var(--sky); }
+        #weather-skeleton { text-align:center; padding:40px 20px; color:var(--txt2); font-size:14px; }
 
         /* ─── ALERTS ─────────────────────────────────────── */
         .alert-list { display:flex; flex-direction:column; gap:12px; }
@@ -798,69 +820,16 @@
     </div>
 
     <div class="weather-alert">
-        🌀 <strong>Temporada de huracanes:</strong> Agosto es temporada activa, pero los huracanes raras veces tocan Punta Cana directamente. Monitorea el sitio <strong>nhc.noaa.gov</strong> a partir de agosto. Lo más común son lluvias vespertinas de 20–30 min.
+        🌀 <strong>Temporada de huracanes:</strong> Agosto es temporada activa, pero los huracanes raras veces tocan Punta Cana directamente. Monitorea <strong>nhc.noaa.gov</strong> en agosto. Lo más común son lluvias vespertinas de 20–30 min.
     </div>
 
-    <div class="weather-grid">
-        <div class="weather-card cloud">
-            <div class="weather-icon">⛅</div>
-            <div class="weather-date">Mié 19 Ago</div>
-            <div class="weather-desc">Parcialmente nublado</div>
-            <div class="weather-stats">
-                <div class="weather-stat"><span>🌡 Temp</span><span>31°C / 88°F</span></div>
-                <div class="weather-stat"><span>🌧 Lluvia</span><span>30%</span></div>
-                <div class="weather-stat"><span>💧 Humedad</span><span>82%</span></div>
-                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
-            </div>
-        </div>
-        <div class="weather-card sun">
-            <div class="weather-icon">☀️</div>
-            <div class="weather-date">Jue 20 Ago · Isla Saona</div>
-            <div class="weather-desc">Soleado por la mañana</div>
-            <div class="weather-stats">
-                <div class="weather-stat"><span>🌡 Temp</span><span>32°C / 90°F</span></div>
-                <div class="weather-stat"><span>🌧 Lluvia</span><span>20%</span></div>
-                <div class="weather-stat"><span>💧 Humedad</span><span>80%</span></div>
-                <div class="weather-stat"><span>🌊 Mar</span><span>29°C calmo</span></div>
-            </div>
-        </div>
-        <div class="weather-card cloud">
-            <div class="weather-icon">🌤</div>
-            <div class="weather-date">Vie 21 Ago · Resort</div>
-            <div class="weather-desc">Variable con sol</div>
-            <div class="weather-stats">
-                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
-                <div class="weather-stat"><span>🌧 Lluvia</span><span>40%</span></div>
-                <div class="weather-stat"><span>💧 Humedad</span><span>84%</span></div>
-                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
-            </div>
-        </div>
-        <div class="weather-card rain">
-            <div class="weather-icon">🌦</div>
-            <div class="weather-date">Sáb 22 Ago</div>
-            <div class="weather-desc">Chubascos vespertinos</div>
-            <div class="weather-stats">
-                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
-                <div class="weather-stat"><span>🌧 Lluvia</span><span>55%</span></div>
-                <div class="weather-stat"><span>💧 Humedad</span><span>86%</span></div>
-                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
-            </div>
-        </div>
-        <div class="weather-card cloud">
-            <div class="weather-icon">⛅</div>
-            <div class="weather-date">Dom 23 Ago · Regreso</div>
-            <div class="weather-desc">Nublado, salida temprano</div>
-            <div class="weather-stats">
-                <div class="weather-stat"><span>🌡 Temp</span><span>30°C / 86°F</span></div>
-                <div class="weather-stat"><span>🌧 Lluvia</span><span>40%</span></div>
-                <div class="weather-stat"><span>💧 Humedad</span><span>83%</span></div>
-                <div class="weather-stat"><span>🌊 Mar</span><span>28°C</span></div>
-            </div>
-        </div>
+    <div id="weather-source-wrap"></div>
+    <div id="weather-grid-wrap">
+        <div id="weather-skeleton">⏳ Cargando pronóstico…</div>
     </div>
 
-    <div class="weather-tip">
-        💡 <strong>Tips de clima:</strong> Las lluvias de agosto en Punta Cana son cortas (20–30 min) y generalmente vespertinas. Planifica actividades al aire libre en la mañana. La Isla Saona (Jue 20) tiene el mejor pronóstico del viaje. Lleva una camiseta impermeable ligera. El sol cae fuerte 10 AM – 2 PM — aplica protector solar doble ración esas horas.
+    <div class="weather-tip" id="weather-tip">
+        💡 <strong>Tips de clima:</strong> Las lluvias de agosto son cortas (20–30 min) y generalmente vespertinas. Planifica actividades al aire libre en la mañana. La Isla Saona (Jue 20) tiene el mejor pronóstico. El sol cae fuerte 10 AM – 2 PM — protector solar doble ración esas horas.
     </div>
 </div></div>
 
@@ -1323,6 +1292,119 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.08 });
 
+// ─── WEATHER ────────────────────────────────────────────────
+// Punta Cana coords
+const WX_LAT = 18.5601, WX_LON = -68.3725;
+const WX_DATES = ['2026-08-19','2026-08-20','2026-08-21','2026-08-22','2026-08-23'];
+const WX_LABELS = ['Mié 19 · Llegada','Jue 20 · Isla Saona','Vie 21 · Resort','Sáb 22 · Compras','Dom 23 · Regreso'];
+
+// Historical averages fallback (agosto, Punta Cana)
+const WX_STATIC = [
+    { tmax:31, tmin:25, rain:30, hum:82, wind:14, code:2 },
+    { tmax:32, tmin:25, rain:20, hum:80, wind:13, code:1 },
+    { tmax:30, tmin:25, rain:40, hum:84, wind:15, code:2 },
+    { tmax:30, tmin:24, rain:55, hum:86, wind:16, code:80 },
+    { tmax:30, tmin:25, rain:40, hum:83, wind:14, code:2 },
+];
+
+function wxCode(code) {
+    if (code === 0)                        return { icon:'☀️', desc:'Despejado',          cls:'sun'   };
+    if (code <= 2)                         return { icon:'⛅', desc:'Parcialmente nublado',cls:'cloud' };
+    if (code === 3)                        return { icon:'☁️', desc:'Nublado',             cls:'cloud' };
+    if (code >= 51 && code <= 67)          return { icon:'🌧', desc:'Llovizna / lluvia',   cls:'rain'  };
+    if (code >= 80 && code <= 82)          return { icon:'🌦', desc:'Chubascos',           cls:'rain'  };
+    if (code >= 95)                        return { icon:'⛈',  desc:'Tormenta',            cls:'storm' };
+    return                                        { icon:'🌤', desc:'Variable',            cls:'cloud' };
+}
+
+function wxCard(label, d, isLive) {
+    const wx   = wxCode(d.code);
+    const feel = d.tmax >= 32 ? 'hot' : '';
+    const rainCls = d.rain >= 50 ? 'rain' : '';
+    return `
+    <div class="weather-card ${wx.cls}">
+        <div class="weather-card-top">
+            <div class="weather-icon">${wx.icon}</div>
+            <div class="weather-card-meta">
+                <div class="weather-date">${label}</div>
+                <div class="weather-desc">${wx.desc}</div>
+            </div>
+        </div>
+        <div class="weather-stats">
+            <div class="weather-stat">
+                <span class="ws-label">🌡 Máx</span>
+                <span class="ws-value ${feel}">${d.tmax}°C</span>
+            </div>
+            <div class="weather-stat">
+                <span class="ws-label">🌡 Mín</span>
+                <span class="ws-value">${d.tmin}°C</span>
+            </div>
+            <div class="weather-stat">
+                <span class="ws-label">🌧 Lluvia</span>
+                <span class="ws-value ${rainCls}">${d.rain}%</span>
+            </div>
+            <div class="weather-stat">
+                <span class="ws-label">💧 Humedad</span>
+                <span class="ws-value humid">${d.hum}%</span>
+            </div>
+            <div class="weather-stat">
+                <span class="ws-label">💨 Viento</span>
+                <span class="ws-value">${d.wind} km/h</span>
+            </div>
+            <div class="weather-stat">
+                <span class="ws-label">🌊 Mar</span>
+                <span class="ws-value sea">28°C</span>
+            </div>
+        </div>
+    </div>`;
+}
+
+function wxRender(days, isLive) {
+    const srcWrap = document.getElementById('weather-source-wrap');
+    const gridWrap = document.getElementById('weather-grid-wrap');
+    srcWrap.innerHTML = isLive
+        ? `<span class="weather-source-badge live">🟢 Pronóstico en tiempo real · Open-Meteo</span>`
+        : `<span class="weather-source-badge avg">📊 Promedios históricos · Se actualizará con datos reales ~16 días antes del viaje</span>`;
+    gridWrap.innerHTML = `<div class="weather-grid">${days.map((d,i) => wxCard(WX_LABELS[i], d, isLive)).join('')}</div>`;
+
+    // re-animate new cards
+    gridWrap.querySelectorAll('.weather-card').forEach(c => {
+        c.style.opacity='0'; c.style.transform='translateY(18px)'; c.style.transition='opacity .5s ease,transform .5s ease';
+        observer.observe(c);
+    });
+}
+
+async function wxLoad() {
+    // Try live API only if within 16 days of first trip date
+    const tripStart = new Date('2026-08-19T00:00:00-04:00').getTime();
+    const now       = Date.now();
+    const daysAway  = (tripStart - now) / 86400000;
+
+    if (daysAway <= 16 && daysAway >= -5) {
+        try {
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${WX_LAT}&longitude=${WX_LON}`
+                + `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode,windspeed_10m_max,relativehumidity_2m_max`
+                + `&timezone=America%2FSanto_Domingo`
+                + `&start_date=${WX_DATES[0]}&end_date=${WX_DATES[WX_DATES.length-1]}`;
+            const res  = await fetch(url);
+            const json = await res.json();
+            const d    = json.daily;
+            const days = WX_DATES.map((_, i) => ({
+                tmax: Math.round(d.temperature_2m_max[i]),
+                tmin: Math.round(d.temperature_2m_min[i]),
+                rain: d.precipitation_probability_max[i] ?? 0,
+                hum:  d.relativehumidity_2m_max ? d.relativehumidity_2m_max[i] : 82,
+                wind: Math.round(d.windspeed_10m_max[i]),
+                code: d.weathercode[i],
+            }));
+            wxRender(days, true);
+            return;
+        } catch(e) { /* fall through to static */ }
+    }
+    // Static fallback
+    wxRender(WX_STATIC, false);
+}
+
 // ─── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     loadTheme();
@@ -1330,6 +1412,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pcRender();
     dinnerLoad(); dinnerBuild();
     loadChecklist();
+    wxLoad();
     document.querySelectorAll('.day-card,.flight-card,.resto-card,.tip-card,.contact-card,.alert-row,.weather-card,.pc-activity,.dinner-night').forEach(c => {
         c.style.opacity='0'; c.style.transform='translateY(18px)'; c.style.transition='opacity .5s ease,transform .5s ease';
         observer.observe(c);
