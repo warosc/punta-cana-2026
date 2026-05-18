@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Punta Cana 2026 • Familia Estrada García</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0ea5e9" id="meta-theme">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Punta Cana">
+    <link rel="apple-touch-icon" href="icon-192.svg">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -506,6 +513,7 @@
         }
         .fab:hover { transform:scale(1.05); }
         .fab.share-fab { background:linear-gradient(135deg,#2563eb,#1d4ed8); box-shadow:0 8px 24px rgba(37,99,235,.4); }
+        .fab.install-fab { background:linear-gradient(135deg,#7c3aed,#6d28d9); box-shadow:0 8px 24px rgba(124,58,237,.4); }
 
         /* ─── SHARE MODAL ────────────────────────────────── */
         .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:200; display:none; align-items:center; justify-content:center; padding:20px; }
@@ -1126,6 +1134,7 @@
 
 <!-- FAB compartir -->
 <div class="fab-group">
+    <button class="fab install-fab" id="install-fab" onclick="installPWA()" style="display:none">📲 Instalar App</button>
     <button class="fab share-fab" onclick="openShare()">🔗 Compartir</button>
 </div>
 
@@ -1557,6 +1566,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 window.addEventListener('scroll', updateNav, { passive: true });
+// -- PWA INSTALL --
+let _installPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    _installPrompt = e;
+    const btn = document.getElementById('install-fab');
+    if (btn) btn.style.display = 'flex';
+});
+window.addEventListener('appinstalled', () => {
+    const btn = document.getElementById('install-fab');
+    if (btn) btn.style.display = 'none';
+    _installPrompt = null;
+});
+function installPWA() {
+    if (_installPrompt) {
+        _installPrompt.prompt();
+        _installPrompt.userChoice.then(() => { _installPrompt = null; });
+    } else {
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        if (isIOS) {
+            alert('Para instalar en iOS:
+1. Toca el boton Compartir (cuadro con flecha)
+2. Selecciona "Agregar a pantalla de inicio"
+3. Toca "Agregar"');
+        } else {
+            alert('Para instalar la app:
+Chrome: menu tres puntos -> "Instalar aplicacion"
+Edge: menu tres puntos -> "Instalar aplicacion"');
+        }
+    }
+}
+
+// -- SERVICE WORKER --
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js', { scope: '/punta-cana-2026/' }).catch(() => {});
+    });
+}
+
 </script>
 </body>
 </html>

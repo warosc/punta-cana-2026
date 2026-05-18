@@ -1,0 +1,22 @@
+{
+  "name": "Punta Cana 2026 · Familia Estrada García",
+  "short_name": "Punta Cana",
+  "description": "Guía completa de vacaciones — Moon Palace The Grand — Agosto 2026",
+  "start_url": "/punta-cana-2026/",
+  "scope": "/punta-cana-2026/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c4a6e",
+  "theme_color": "#0ea5e9",
+  "lang": "es",
+  "categories": ["travel", "lifestyle"],
+  "icons": [
+    { "src": "icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Vuelos",    "url": "/punta-cana-2026/#vuelos",    "icons": [{ "src": "icon-192.svg", "sizes": "192x192" }] },
+    { "name": "Checklist", "url": "/punta-cana-2026/#checklist", "icons": [{ "src": "icon-192.svg", "sizes": "192x192" }] },
+    { "name": "Clima",     "url": "/punta-cana-2026/#clima",     "icons": [{ "src": "icon-192.svg", "sizes": "192x192" }] }
+  ]
+}
