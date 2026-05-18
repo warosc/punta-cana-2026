@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Punta Cana 2026 • Familia Estrada García</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky: #0ea5e9;
+            --ocean: #06b6d4;
+            --sand: #fbbf24;
+            --coral: #f97316;
+            --palm: #10b981;
+            --deep: #0c4a6e;
+            --night: #1e293b;
+            --light: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--night);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(14,165,233,0.15);
+            padding: 0 16px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        nav::-webkit-scrollbar { display: none; }
+
+        .nav-link {
+            white-space: nowrap;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--deep);
+            text-decoration: none;
+            border: 1.5px solid transparent;
+            transition: all .25s;
+            flex-shrink: 0;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: var(--sky);
+            color: white;
+            border-color: var(--sky);
+        }
+
+        /* ─── HERO / PORTADA ──────────────────────────────── */
+        #inicio {
+            min-height: 100svh;
+            background: linear-gradient(160deg, #0c4a6e 0%, #0ea5e9 45%, #06b6d4 70%, #fbbf24 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated bubbles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            animation: float linear infinite;
+        }
+        .bubble:nth-child(1)  { width:80px;  height:80px;  left:10%; bottom:-80px; animation-duration:12s; }
+        .bubble:nth-child(2)  { width:120px; height:120px; left:25%; bottom:-120px; animation-duration:18s; animation-delay:3s; }
+        .bubble:nth-child(3)  { width:60px;  height:60px;  left:50%; bottom:-60px; animation-duration:10s; animation-delay:6s; }
+        .bubble:nth-child(4)  { width:100px; height:100px; left:70%; bottom:-100px; animation-duration:15s; animation-delay:1s; }
+        .bubble:nth-child(5)  { width:40px;  height:40px;  left:85%; bottom:-40px; animation-duration:9s;  animation-delay:4s; }
+
+        @keyframes float {
+            0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 70px; right: 30px;
+            width: 90px; height: 90px;
+            background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(251,191,36,.7), 0 0 80px rgba(251,191,36,.3);
+            animation: sunPulse 4s ease-in-out infinite;
+        }
+        @keyframes sunPulse {
+            0%,100% { transform: scale(1); box-shadow: 0 0 40px rgba(251,191,36,.7), 0 0 80px rgba(251,191,36,.3); }
+            50%      { transform: scale(1.12); box-shadow: 0 0 60px rgba(251,191,36,.9), 0 0 120px rgba(251,191,36,.4); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(52px, 14vw, 96px);
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            line-height: 1;
+            text-align: center;
+            z-index: 2;
+            animation: heroIn 1s ease-out both;
+        }
+        .hero-year {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 10vw, 72px);
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            z-index: 2;
+            animation: heroIn 1.2s ease-out both;
+            margin-bottom: 6px;
+        }
+        .hero-sub {
+            font-size: clamp(13px, 3.5vw, 18px);
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            z-index: 2;
+            animation: heroIn 1.4s ease-out both;
+            margin-bottom: 28px;
+        }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── COUNTDOWN ───────────────────────────────────── */
+        .countdown-card {
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255,255,255,0.35);
+            border-radius: 24px;
+            padding: 24px 28px;
+            z-index: 2;
+            animation: heroIn 1.6s ease-out both;
+            width: 100%;
+            max-width: 480px;
+            margin-bottom: 20px;
+        }
+
+        .countdown-label {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+        }
+
+        .cd-box {
+            background: rgba(255,255,255,0.18);
+            border-radius: 16px;
+            padding: 14px 6px 10px;
+            text-align: center;
+        }
+        .cd-num {
+            font-size: clamp(28px, 8vw, 42px);
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .cd-unit {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .countdown-footer {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.65);
+            margin-top: 14px;
+        }
+        .countdown-footer strong {
+            color: var(--sand);
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            width: 100%;
+            max-width: 480px;
+            z-index: 2;
+            animation: heroIn 1.8s ease-out both;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: rgba(255,255,255,0.75);
+            font-weight: 600;
+            margin-bottom: 8px;
+            padding: 0 4px;
+        }
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.2);
+            border-radius: 99px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--palm), var(--sand));
+            transition: width 1s ease;
+        }
+
+        /* Info chips */
+        .info-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            z-index: 2;
+            animation: heroIn 2s ease-out both;
+            max-width: 480px;
+            margin-top: 16px;
+        }
+        .chip {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .chip.green {
+            background: rgba(16,185,129,0.4);
+            border-color: rgba(16,185,129,0.6);
+        }
+        .chip.yellow {
+            background: rgba(251,191,36,0.35);
+            border-color: rgba(251,191,36,0.6);
+            color: #fef3c7;
+        }
+
+        /* Wave divider */
+        .wave {
+            display: block;
+            width: 100%;
+            height: 60px;
+            margin-bottom: -2px;
+        }
+
+        /* ─── SECTIONS ────────────────────────────────────── */
+        .section {
+            padding: 56px 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .section-icon {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .section-icon.blue  { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
+        .section-icon.green { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
+        .section-icon.yellow{ background: linear-gradient(135deg,#fef9c3,#fde68a); }
+        .section-icon.purple{ background: linear-gradient(135deg,#ede9fe,#ddd6fe); }
+        .section-icon.pink  { background: linear-gradient(135deg,#fce7f3,#fbcfe8); }
+        .section-icon.red   { background: linear-gradient(135deg,#fee2e2,#fecaca); }
+        .section-icon.teal  { background: linear-gradient(135deg,#ccfbf1,#99f6e4); }
+
+        .section-title {
+            font-size: clamp(22px, 5vw, 30px);
+            font-weight: 800;
+            color: var(--night);
+        }
+        .section-title small {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        /* ─── FLIGHT CARDS ────────────────────────────────── */
+        .flight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            border-left: 5px solid var(--sky);
+            overflow: hidden;
+            position: relative;
+        }
+        .flight-card::after {
+            content: '✈';
+            position: absolute;
+            right: 20px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 48px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .flight-route {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .airport-code {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep);
+        }
+        .route-line {
+            flex: 1;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .route-line hr {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed #cbd5e1;
+        }
+        .flight-meta {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .meta-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+        .meta-item strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: #94a3b8;
+            margin-bottom: 2px;
+        }
+        .alert-pill {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            border: 1.5px solid #fca5a5;
+        }
+        .tip-pill {
+            background: linear-gradient(135deg, #fef9c3, #fde68a);
+            color: #78350f;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        .stopover-banner {
+            background: linear-gradient(135deg, #0c4a6e, #0ea5e9);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            margin: 16px 0;
+        }
+        .flight-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sky), var(--ocean));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            margin-bottom: 8px;
+        }
+
+        /* ─── DAY CARDS ───────────────────────────────────── */
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        }
+        .day-head {
+            padding: 18px 20px 14px;
+            position: relative;
+        }
+        .day-head.d1 { background: linear-gradient(135deg,#cffafe,#a5f3fc); color: #164e63; }
+        .day-head.d2 { background: linear-gradient(135deg,#dcfce7,#a7f3d0); color: #065f46; }
+        .day-head.d3 { background: linear-gradient(135deg,#fef9c3,#fde68a); color: #78350f; }
+        .day-head.d4 { background: linear-gradient(135deg,#ede9fe,#ddd6fe); color: #4c1d95; }
+        .day-head.d5 { background: linear-gradient(135deg,#fce7f3,#fbcfe8); color: #831843; }
+        .day-head.d6 { background: linear-gradient(135deg,#fee2e2,#fecaca); color: #7f1d1d; }
+        .day-number {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: .75;
+        }
+        .day-title  { font-size: 20px; font-weight: 800; line-height: 1.2; }
+        .day-sub    { font-size: 13px; font-weight: 500; opacity: .8; margin-top: 2px; }
+        .day-emoji  {
+            position: absolute;
+            right: 18px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            opacity: .25;
+        }
+
+        .day-body { padding: 12px 16px 16px; }
+
+        .schedule-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            align-items: flex-start;
+            transition: background .2s;
+        }
+        .schedule-item:hover { background: var(--light); }
+        .sch-time {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--sky);
+            min-width: 90px;
+            padding-top: 2px;
+            font-variant-numeric: tabular-nums;
+        }
+        .sch-act {
+            font-size: 13px;
+            flex: 1;
+            line-height: 1.5;
+        }
+        .cost-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg,#dcfce7,#bbf7d0);
+            color: #065f46;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        /* ─── RESTAURANTS ─────────────────────────────────── */
+        .resto-banner {
+            background: linear-gradient(135deg,#fbbf24,#f59e0b);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .resto-banner h3 { font-size: 18px; font-weight: 800; }
+
+        .resto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .resto-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 14px 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-top: 3px solid var(--palm);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .resto-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .resto-card.premium { border-top-color: var(--sand); }
+        .resto-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .resto-card p  { font-size: 11px; color: #64748b; }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .badge.gold  { background: #fef3c7; color: #92400e; }
+        .badge.blue  { background: #dbeafe; color: #1e40af; }
+
+        /* ─── ALERTS ──────────────────────────────────────── */
+        .alert-list { display: flex; flex-direction: column; gap: 12px; }
+        .alert-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 18px;
+            border-radius: 18px;
+            color: white;
+        }
+        .alert-row.critical { background: linear-gradient(135deg,#dc2626,#b91c1c); }
+        .alert-row.warning  { background: linear-gradient(135deg,#ea580c,#c2410c); }
+        .alert-row.success  { background: linear-gradient(135deg,#059669,#047857); }
+        .alert-row.info     { background: linear-gradient(135deg,#2563eb,#1d4ed8); }
+        .alert-row.purple   { background: linear-gradient(135deg,#7c3aed,#6d28d9); }
+        .alert-icon { font-size: 28px; flex-shrink: 0; }
+        .alert-text h4  { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .alert-text p   { font-size: 13px; opacity: .9; line-height: 1.5; }
+
+        /* ─── CHECKLIST ───────────────────────────────────── */
+        .checklist-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 24px 0 12px;
+            color: var(--night);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: background .2s;
+            user-select: none;
+        }
+        .check-item:hover { background: #f0fdf4; }
+        .check-item.checked { background: #f0fdf4; }
+        .check-item.checked .check-label { text-decoration: line-through; color: #94a3b8; }
+        .check-box {
+            width: 22px; height: 22px;
+            border: 2.5px solid #cbd5e1;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            transition: all .2s;
+        }
+        .check-item.checked .check-box {
+            background: var(--palm);
+            border-color: var(--palm);
+            color: white;
+        }
+        .check-item.required .check-box {
+            border-color: #dc2626;
+        }
+        .check-item.required:not(.checked) .check-label { font-weight: 600; }
+        .check-label { font-size: 13px; }
+
+        /* ─── CONTACTS ────────────────────────────────────── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--sky);
+        }
+        .contact-card h4 { font-size: 14px; font-weight: 700; color: var(--deep); margin-bottom: 8px; }
+        .contact-card p  { font-size: 12px; color: #475569; line-height: 1.7; }
+        .contact-card a  { color: var(--sky); text-decoration: none; font-weight: 600; }
+
+        /* ─── TIPS ────────────────────────────────────────── */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .tip-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-top: 3px solid var(--palm);
+        }
+        .tip-num { font-size: 22px; font-weight: 800; color: var(--palm); margin-bottom: 6px; }
+        .tip-txt { font-size: 13px; color: #374151; }
+
+        /* ─── BUDGET ──────────────────────────────────────── */
+        .budget-card {
+            background: linear-gradient(135deg,#059669,#065f46);
+            color: white;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .budget-card .amount {
+            font-size: clamp(32px,8vw,48px);
+            font-weight: 800;
+            margin: 8px 0;
+        }
+        .budget-card small { opacity: .8; font-size: 13px; }
+
+        /* ─── FINAL ───────────────────────────────────────── */
+        .final {
+            background: linear-gradient(135deg,#0c4a6e,#0ea5e9,#fbbf24);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        .final h2 { font-family:'Playfair Display',serif; font-size:clamp(28px,7vw,48px); font-weight:900; margin-bottom:8px; }
+        .final .wave-icons { font-size: 48px; margin: 20px 0; letter-spacing: 6px; }
+        .final p { font-size: 16px; opacity: .85; }
+
+        /* ─── FOOTER ──────────────────────────────────────── */
+        footer {
+            background: var(--night);
+            color: rgba(255,255,255,.5);
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+        footer strong { color: rgba(255,255,255,.8); }
+
+        /* ─── FAB ─────────────────────────────────────────── */
+        .fab {
+            position: fixed;
+            bottom: 24px; right: 20px;
+            background: linear-gradient(135deg,var(--palm),#047857);
+            color: white;
+            padding: 13px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(5,150,105,.4);
+            z-index: 99;
+            transition: transform .2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fab:hover { transform: scale(1.05); }
+
+        /* ─── SECTION SEPARATOR ───────────────────────────── */
+        .sep {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 0 20px;
+        }
+
+        /* ─── UTILS ───────────────────────────────────────── */
+        .arrived { display: none; }
+        .arrived-msg {
+            background: linear-gradient(135deg,#059669,#fbbf24);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            display: none;
+        }
+
+        @media print {
+            nav, .fab { display: none !important; }
+            body { background: white; }
+            #inicio { min-height: unset; padding-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#inicio"    class="nav-link active">🏝 Inicio</a>
+    <a href="#vuelos"    class="nav-link">✈️ Vuelos</a>
+    <a href="#dias"      class="nav-link">📅 Días</a>
+    <a href="#restaurantes" class="nav-link">🍽 Comida</a>
+    <a href="#alertas"   class="nav-link">⚠️ Alertas</a>
+    <a href="#checklist" class="nav-link">✅ Check</a>
+    <a href="#contactos" class="nav-link">📞 Contactos</a>
+    <a href="#tips"      class="nav-link">💡 Tips</a>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
+    <div class="sun"></div>
+
+    <p class="hero-title">🏝️ PUNTA CANA</p>
+    <p class="hero-year">2026</p>
+    <p class="hero-sub">Guía completa · Familia Estrada García · 5 personas</p>
+
+    <!-- Countdown -->
+    <div class="countdown-card">
+        <div class="countdown-label" id="cd-label">⏳ FALTAN PARA SALIR DE CASA</div>
+        <div class="arrived-msg" id="arrived-msg">🎉 ¡YA LLEGÓ EL MOMENTO! ¡BUEN VIAJE! 🌴</div>
+        <div class="countdown-grid" id="countdown-grid">
+            <div class="cd-box"><div class="cd-num" id="cd-days">—</div><div class="cd-unit">días</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-hours">—</div><div class="cd-unit">horas</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-mins">—</div><div class="cd-unit">minutos</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-secs">—</div><div class="cd-unit">segundos</div></div>
+        </div>
+        <div class="countdown-footer">
+            Salida de casa: <strong>17 Agosto 2026, 10:00 PM</strong> · Vuelo: <strong>18 Ago 2:28 AM</strong>
+        </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>🗓 Hoy (Mayo 2026)</span>
+            <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+    </div>
+
+    <!-- Chips -->
+    <div class="info-chips">
+        <span class="chip">🏨 Moon Palace The Grand</span>
+        <span class="chip">18–23 Agosto</span>
+        <span class="chip yellow">🎫 MVW-3F2J5R-I</span>
+        <span class="chip green">🎁 $1,500 Palace Credits</span>
+        <span class="chip">4 noches + stopover Panamá</span>
+    </div>
+</section>
+
+<!-- Wave SVG -->
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f8fafc"/>
+</svg>
+
+<!-- VUELOS -->
+<div id="vuelos" style="background:#f8fafc; padding-bottom:0;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon blue">✈️</div>
+        <div class="section-title">Itinerario de vuelos <small>Copa Airlines · Código BAV0X3</small></div>
+    </div>
+
+    <div class="flight-card">
+        <div class="flight-tag">Vuelo 1 · Martes 18 Agosto</div>
+        <div class="flight-route">
+            <div class="airport-code">GUA</div>
+            <div class="route-line"><hr><span>✈</span><hr></div>
+            <div class="airport-code">PTY</div>
+        </div>
+        <div style="font-size:13px; color:#475569;">Guatemala → Panamá · CM 183 Economy</div>
+        <div class="flight-meta">
+            <div class="meta-item"><strong>Salida</strong>2:28 AM</div>
+            <div class="meta-item"><strong>Llegada</strong>5:55 AM</div>
+            <div class="meta-item"><strong>Duración</strong>2h 27m</div>
+            <div class="meta-item"><strong>Clase</strong>Economy</div>
+        </div>
+        <div class="alert-pill">🚨 Estar en aeropuerto 12:30 AM · Salir de casa 10:00 PM del 17</div>
+    </div>
+
+    <div class="stopover-banner">🏙️ STOPOVER EN PANAMÁ · 1 noche (18 → 19 agosto)</div>
+
+    <div class="flight-card">
+        <div class="flight-tag">Vuelo 2 · Miércoles 19 Agosto</div>
+        <div class="flight-route">
+            <div class="airport-code">PTY</div>
+            <div class="route-line"><hr><span>✈</span><hr></div>
+            <div class="airport-code">PUJ</div>
+        </div>
+        <div style="font-size:13px; color:#475569;">Panamá → Punta Cana · CM 241 Economy</div>
+        <div class="flight-meta">
+            <div class="meta-item"><strong>Salida</strong>9:09 AM</div>
+            <div class="meta-item"><strong>Llegada</strong>12:49 PM</div>
+            <div class="meta-item"><strong>Duración</strong>2h 40m</div>
+            <div class="meta-item"><strong>Check-in hotel</strong>3:00 PM</div>
+        </div>
+        <div class="tip-pill">🏖️ ¡Bienvenidos al Moon Palace The Grand!</div>
+    </div>
+
+    <div class="flight-card" style="border-left-color:#dc2626;">
+        <div class="flight-tag" style="background:linear-gradient(135deg,#dc2626,#991b1b);">Regreso · Domingo 23 Agosto</div>
+        <div class="flight-route">
+            <div class="airport-code" style="color:#991b1b;">PUJ</div>
+            <div class="route-line"><hr><span>✈</span><hr></div>
+            <div class="airport-code" style="color:#991b1b;">PTY</div>
+            <div class="route-line"><hr><span>✈</span><hr></div>
+            <div class="airport-code" style="color:#991b1b;">GUA</div>
+        </div>
+        <div class="flight-meta">
+            <div class="meta-item"><strong>CM 178 Salida</strong>11:46 AM PUJ</div>
+            <div class="meta-item"><strong>CM 178 Llega</strong>1:29 PM PTY</div>
+            <div class="meta-item"><strong>Escala PTY</strong>7h 52min</div>
+            <div class="meta-item"><strong>CM 496 Llegada GUA</strong>10:43 PM</div>
+        </div>
+        <div class="tip-pill">⏰ Aprovechar escala: tour Casco Viejo o Albrook Mall</div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- DIAS -->
+<div id="dias" style="background:white;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon yellow">📅</div>
+        <div class="section-title">Plan día por día <small>6 días de aventura</small></div>
+    </div>
+
+    <!-- DÍA 1 -->
+    <div class="day-card">
+        <div class="day-head d1">
+            <div class="day-number">Día 1 · Martes 18 Agosto</div>
+            <div class="day-title">Salida y Stopover Panamá</div>
+            <div class="day-sub">La aventura comienza 🇵🇦</div>
+            <div class="day-emoji">🛫</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">10:00 PM (17)</div><div class="sch-act">🚗 Salida de casa hacia aeropuerto La Aurora</div></div>
+            <div class="schedule-item"><div class="sch-time">12:30 AM</div><div class="sch-act">✈️ Llegada aeropuerto — check-in y migración</div></div>
+            <div class="schedule-item"><div class="sch-time">2:28 AM</div><div class="sch-act">🛫 Vuelo GUA → PTY (CM 183)</div></div>
+            <div class="schedule-item"><div class="sch-time">5:55 AM</div><div class="sch-act">🛬 Llegada a Panamá</div></div>
+            <div class="schedule-item"><div class="sch-time">9:00 – 1:00</div><div class="sch-act">🏛️ Tour Casco Viejo (3 horas)</div></div>
+            <div class="schedule-item"><div class="sch-time">1:00 PM</div><div class="sch-act">🦞 Almuerzo en Mercado de Mariscos</div></div>
+            <div class="schedule-item"><div class="sch-time">2:30 – 6:00</div><div class="sch-act">🌆 Cinta Costera + skyline de la ciudad</div></div>
+            <div class="schedule-item"><div class="sch-time">7:00 PM</div><div class="sch-act">🍽️ Cena en Donde José (fine dining panameño)</div></div>
+            <div class="schedule-item"><div class="sch-time">10:00 PM</div><div class="sch-act">😴 Hotel cerca del aeropuerto</div></div>
+        </div>
+    </div>
+
+    <!-- DÍA 2 -->
+    <div class="day-card">
+        <div class="day-head d2">
+            <div class="day-number">Día 2 · Miércoles 19 Agosto</div>
+            <div class="day-title">¡Llegada al Paraíso!</div>
+            <div class="day-sub">Bienvenidos a Punta Cana 🏖️</div>
+            <div class="day-emoji">🌊</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">6:00 AM</div><div class="sch-act">🍳 Desayuno en hotel Panamá</div></div>
+            <div class="schedule-item"><div class="sch-time">7:00 AM</div><div class="sch-act">🚗 Checkout y traslado al aeropuerto PTY</div></div>
+            <div class="schedule-item"><div class="sch-time">9:09 AM</div><div class="sch-act">✈️ Vuelo PTY → PUJ (CM 241)</div></div>
+            <div class="schedule-item"><div class="sch-time">12:49 PM</div><div class="sch-act">🛬 Llegada a Punta Cana 🎉</div></div>
+            <div class="schedule-item"><div class="sch-time">3:00 PM</div><div class="sch-act">🏨 Check-in Moon Palace The Grand</div></div>
+            <div class="schedule-item"><div class="sch-time">4:00 PM</div><div class="sch-act">🍴 Almuerzo en The Grand Buffet</div></div>
+            <div class="schedule-item"><div class="sch-time">5:00 PM</div><div class="sch-act">🏊 Recorrido amenidades + reservar restaurantes en la app</div></div>
+            <div class="schedule-item"><div class="sch-time">8:30 PM</div><div class="sch-act">🌮 Cena en La Cantina (mexicano festivo)</div></div>
+            <div class="schedule-item"><div class="sch-time">10:00 PM</div><div class="sch-act">🌙 Paseo nocturno por la playa</div></div>
+            <div class="cost-tag">💡 Descarga la Palace Resorts App — reserva restaurantes hoy mismo</div>
+        </div>
+    </div>
+
+    <!-- DÍA 3 -->
+    <div class="day-card">
+        <div class="day-head d3">
+            <div class="day-number">Día 3 · Jueves 20 Agosto</div>
+            <div class="day-title">Tour Isla Saona</div>
+            <div class="day-sub">El día más épico del viaje 🏝️</div>
+            <div class="day-emoji">🛥️</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">7:00 AM</div><div class="sch-act">🍳 Desayuno en The Grand Buffet</div></div>
+            <div class="schedule-item"><div class="sch-time">7:30 AM</div><div class="sch-act">🚐 Pickup en el hotel</div></div>
+            <div class="schedule-item"><div class="sch-time">8:30 AM</div><div class="sch-act">🛥️ Salida en catamarán desde Bayahibe</div></div>
+            <div class="schedule-item"><div class="sch-time">10:30 AM</div><div class="sch-act">🏝️ Llegada a Isla Saona — playa paradisíaca</div></div>
+            <div class="schedule-item"><div class="sch-time">12:00 PM</div><div class="sch-act">🍴 Almuerzo buffet caribeño en la playa</div></div>
+            <div class="schedule-item"><div class="sch-time">2:00 PM</div><div class="sch-act">🏊 Piscina Natural — agua a la cintura en medio del mar</div></div>
+            <div class="schedule-item"><div class="sch-time">3:30 PM</div><div class="sch-act">🎉 Regreso en catamarán con música y fiesta</div></div>
+            <div class="schedule-item"><div class="sch-time">8:00 PM</div><div class="sch-act">🥩 Cena en JC Prime Room 84 (steakhouse)</div></div>
+            <div class="schedule-item"><div class="sch-time">10:00 PM</div><div class="sch-act">🎵 Unique Night Club o Waitiki Bar</div></div>
+            <div class="cost-tag">💰 Tour: $450–600 USD para 5 · Usar Palace Credits</div>
+        </div>
+    </div>
+
+    <!-- DÍA 4 -->
+    <div class="day-card">
+        <div class="day-head d4">
+            <div class="day-number">Día 4 · Viernes 21 Agosto</div>
+            <div class="day-title">Resort & Relax Total</div>
+            <div class="day-sub">Surf, spa y gastronomía 🧘</div>
+            <div class="day-emoji">💆</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">8:00 AM</div><div class="sch-act">🍴 Desayuno en Casa Macao</div></div>
+            <div class="schedule-item"><div class="sch-time">9:30 AM</div><div class="sch-act">🏄 ProFlow Triple Wave Simulator (surf)</div></div>
+            <div class="schedule-item"><div class="sch-time">10:30 AM</div><div class="sch-act">🌊 Water Park con toboganes</div></div>
+            <div class="schedule-item"><div class="sch-time">11:30 AM</div><div class="sch-act">🏖️ Playa privada + coco helado</div></div>
+            <div class="schedule-item"><div class="sch-time">1:00 PM</div><div class="sch-act">🍽️ Almuerzo en Joe's Deck (vista al mar)</div></div>
+            <div class="schedule-item"><div class="sch-time">2:30 PM</div><div class="sch-act">💆 O Spa — circuito hidroterapia + masajes</div></div>
+            <div class="schedule-item"><div class="sch-time">7:00 PM</div><div class="sch-act">🇬🇷 Cena en Nikos (griego mediterráneo)</div></div>
+            <div class="schedule-item"><div class="sch-time">9:00 PM</div><div class="sch-act">🎭 Show nocturno en teatro del resort</div></div>
+            <div class="schedule-item"><div class="sch-time">10:30 PM</div><div class="sch-act">🍸 Cócteles en Speakeasy Bar (solo adultos)</div></div>
+            <div class="cost-tag">💰 Spa: Usar Palace Credits</div>
+        </div>
+    </div>
+
+    <!-- DÍA 5 -->
+    <div class="day-card">
+        <div class="day-head d5">
+            <div class="day-number">Día 5 · Sábado 22 Agosto</div>
+            <div class="day-title">Cultura Local y Compras</div>
+            <div class="day-sub">Última noche en el paraíso 🛍️</div>
+            <div class="day-emoji">🛍️</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">8:00 AM</div><div class="sch-act">🍝 Desayuno en Tavola (italiano)</div></div>
+            <div class="schedule-item"><div class="sch-time">9:00 AM</div><div class="sch-act">⛳ Greg Norman Golf Course o 🎳 The Ninth Pin Bowling</div></div>
+            <div class="schedule-item"><div class="sch-time">11:00 AM</div><div class="sch-act">⛪ Tour a Higüey + plantación de cacao</div></div>
+            <div class="schedule-item"><div class="sch-time">2:00 PM</div><div class="sch-act">🍴 Almuerzo en restaurante local</div></div>
+            <div class="schedule-item"><div class="sch-time">3:30 PM</div><div class="sch-act">🛍️ Compras: Ron Barceló, chocolate, artesanías</div></div>
+            <div class="schedule-item"><div class="sch-time">7:30 PM</div><div class="sch-act">🔥 Cena especial: Fuego by Grilling Bastards</div></div>
+            <div class="schedule-item"><div class="sch-time">9:30 PM</div><div class="sch-act">🍦 Camino Street — churros, helados, bao buns</div></div>
+            <div class="schedule-item"><div class="sch-time">11:00 PM</div><div class="sch-act">🎒 <strong>EMPACAR MALETAS</strong></div></div>
+            <div class="cost-tag">💰 Cena: Usar Palace Credits</div>
+        </div>
+    </div>
+
+    <!-- DÍA 6 -->
+    <div class="day-card">
+        <div class="day-head d6">
+            <div class="day-number">Día 6 · Domingo 23 Agosto</div>
+            <div class="day-title">Regreso a Guatemala</div>
+            <div class="day-sub">Con el corazón lleno 🏠</div>
+            <div class="day-emoji">🏡</div>
+        </div>
+        <div class="day-body">
+            <div class="schedule-item"><div class="sch-time">7:00 AM</div><div class="sch-act">🍳 Desayuno final en The Grand Buffet</div></div>
+            <div class="schedule-item"><div class="sch-time">8:00 AM</div><div class="sch-act">🏊 Último chapuzón en la piscina</div></div>
+            <div class="schedule-item"><div class="sch-time">9:30 AM</div><div class="sch-act">🚗 Check-out (antes de 12:00 PM)</div></div>
+            <div class="schedule-item"><div class="sch-time">11:46 AM</div><div class="sch-act">✈️ Vuelo PUJ → PTY (CM 178)</div></div>
+            <div class="schedule-item"><div class="sch-time">1:29 PM</div><div class="sch-act">🛬 Llegada PTY — escala 7h 52min</div></div>
+            <div class="schedule-item"><div class="sch-time">2:00 – 6:30</div><div class="sch-act">🌆 Tour Casco Viejo o Albrook Mall</div></div>
+            <div class="schedule-item"><div class="sch-time">9:21 PM</div><div class="sch-act">✈️ Vuelo PTY → GUA (CM 496)</div></div>
+            <div class="schedule-item"><div class="sch-time">10:43 PM</div><div class="sch-act">🏠 <strong>¡Llegada a Guatemala!</strong></div></div>
+        </div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- RESTAURANTES -->
+<div id="restaurantes" style="background:#f8fafc;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon green">🍽️</div>
+        <div class="section-title">Guía de restaurantes <small>All-inclusive + Palace Credits</small></div>
+    </div>
+
+    <div class="resto-banner">
+        <h3>💳 USA TUS $1,500 PALACE CREDITS EN ESTO</h3>
+        <p style="font-size:13px; margin-top:6px; opacity:.9;">No se transfieren ni devuelven — ¡aprovéchalos al máximo!</p>
+    </div>
+
+    <div class="resto-grid" style="margin-bottom:28px;">
+        <div class="resto-card premium"><h4>🥩 JC Prime Room 84</h4><p>Steakhouse premium (adultos)</p><span class="badge gold">💰 Credits</span></div>
+        <div class="resto-card premium"><h4>🔥 Fuego by Grilling Bastards</h4><p>Parrilla premium</p><span class="badge gold">💰 Credits</span></div>
+        <div class="resto-card premium"><h4>💆 O Spa</h4><p>Masajes e hidroterapia</p><span class="badge gold">💰 Credits</span></div>
+        <div class="resto-card premium"><h4>🎳 The Ninth Pin</h4><p>Bowling y bar</p><span class="badge gold">💰 Credits</span></div>
+        <div class="resto-card premium"><h4>⛳ Greg Norman Golf</h4><p>Green fees</p><span class="badge gold">💰 Credits</span></div>
+    </div>
+
+    <h3 style="font-size:16px; font-weight:700; margin-bottom:14px; color:#1e293b;">✅ Incluidos en el All-Inclusive:</h3>
+    <div class="resto-grid">
+        <div class="resto-card"><h4>🌍 Casa Macao</h4><p>Buffet int'l con estaciones en vivo</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🌮 La Cantina</h4><p>Mexicano festivo + tequila</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🍕 Tavola</h4><p>Italiano casual</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🇫🇷 Le Jiraf</h4><p>Francés bistro</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🇬🇷 Nikos</h4><p>Griego mediterráneo</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🇧🇷 Carvao</h4><p>Churrascaria brasileña</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🌴 Madremía</h4><p>Latinoamericano</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🥙 Habibi</h4><p>Cocina del Medio Oriente</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🍱 Jade Izakaya</h4><p>Japonés robata grill</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🍛 Agra</h4><p>Indio con especias</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🍢 Momo Teppan</h4><p>Teppanyaki hibachi</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🏖️ Joe's Deck</h4><p>Caribeño frente a la playa</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🍔 League's</h4><p>Sports bar</p><span class="badge blue">All-in</span></div>
+        <div class="resto-card"><h4>🧚 WonderWoods</h4><p>Para los niños</p><span class="badge blue">All-in</span></div>
+    </div>
+
+    <div class="alert-pill" style="margin-top:20px; font-size:13px;">
+        ⚠️ <strong>Dress Code cenas:</strong> Pantalón largo · NO chanclas · NO camisetas sin mangas
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- ALERTAS -->
+<div id="alertas" style="background:white;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon red">⚠️</div>
+        <div class="section-title">Alertas críticas <small>Lee esto antes de empacar</small></div>
+    </div>
+    <div class="alert-list">
+        <div class="alert-row critical">
+            <div class="alert-icon">🚨</div>
+            <div class="alert-text">
+                <h4>FORMULARIO DOMINICANA — OBLIGATORIO</h4>
+                <p>Completar máximo 72 horas antes de viajar. Cada pasajero necesita el suyo.<br>
+                <strong>eticket.migracion.gob.do</strong></p>
+            </div>
+        </div>
+        <div class="alert-row warning">
+            <div class="alert-icon">⏰</div>
+            <div class="alert-text">
+                <h4>VUELO DE MADRUGADA — 2:28 AM</h4>
+                <p>Salir de casa: <strong>10:00 PM (17 agosto)</strong><br>
+                Estar en aeropuerto: <strong>12:30 AM (18 agosto)</strong></p>
+            </div>
+        </div>
+        <div class="alert-row success">
+            <div class="alert-icon">💳</div>
+            <div class="alert-text">
+                <h4>PALACE CREDITS — $1,500 USD</h4>
+                <p>No se transfieren · No se devuelven · Úsalos antes del checkout del 23 agosto.</p>
+            </div>
+        </div>
+        <div class="alert-row info">
+            <div class="alert-icon">📱</div>
+            <div class="alert-text">
+                <h4>PALACE RESORTS APP</h4>
+                <p>Descargar ANTES de llegar al hotel.<br>
+                Hacer reservas de restaurantes el primer día que llegues.</p>
+            </div>
+        </div>
+        <div class="alert-row purple">
+            <div class="alert-icon">👔</div>
+            <div class="alert-text">
+                <h4>DRESS CODE EN CENAS</h4>
+                <p>Pantalón largo recomendado · No chanclas · No camisetas sin mangas</p>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- CHECKLIST -->
+<div id="checklist" style="background:#f8fafc;">
+<div class="section checklist-section">
+    <div class="section-header">
+        <div class="section-icon teal">✅</div>
+        <div class="section-title">Checklist pre-viaje <small>Toca cada ítem para marcar como listo</small></div>
+    </div>
+
+    <h3>📄 Documentos críticos</h3>
+    <div class="check-grid" id="docs-grid">
+        <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">5 Pasaportes válidos (6 meses mín)</span></div>
+        <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Boletos impresos (BAV0X3)</span></div>
+        <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Confirmación hotel (MVW-3F2J5R-I)</span></div>
+        <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box" style="border-color:#dc2626;"></div><span class="check-label">🚨 Formulario Dominicana (OBLIGATORIO)</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Seguro de viaje</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Notificar banco tarjetas de crédito</span></div>
+    </div>
+
+    <h3>🎒 Equipaje esencial</h3>
+    <div class="check-grid">
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">5 trajes de baño por persona</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Protector solar SPF 50+ (¡mucho!)</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Ropa para cenas (pantalón + camisa)</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Repelente de mosquitos</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Lentes de sol y gorras</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Medicamentos personales</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Cargadores y power banks</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Dólares efectivo ($800–1,000)</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Cámara / GoPro para playa</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Zapatos cerrados para cenas</span></div>
+    </div>
+
+    <h3>📱 Apps y tecnología</h3>
+    <div class="check-grid">
+        <div class="check-item required" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Palace Resorts App instalada</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Google Maps offline (Punta Cana)</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Roaming activado o SIM local</span></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Copias digitales de documentos</span></div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- CONTACTOS -->
+<div id="contactos" style="background:white;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon blue">📞</div>
+        <div class="section-title">Contactos de emergencia <small>Guárdalos en tu teléfono</small></div>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-card">
+            <h4>🏨 Moon Palace The Grand</h4>
+            <p>📞 +52 998 193 2190</p>
+            <p>📧 <a href="mailto:relpubtgpc@palaceresorts.com">relpubtgpc@palaceresorts.com</a></p>
+        </div>
+        <div class="contact-card">
+            <h4>✈️ Copa Airlines Guatemala</h4>
+            <p>📞 2385-0000</p>
+            <p>🌐 copa.com</p>
+        </div>
+        <div class="contact-card">
+            <h4>🚨 Policía Turística Punta Cana</h4>
+            <p>📞 809-754-3054</p>
+            <p>Emergencias 24/7</p>
+        </div>
+        <div class="contact-card">
+            <h4>🏥 Hospital Punta Cana</h4>
+            <p>📞 809-686-1414</p>
+            <p>Atención médica 24/7</p>
+        </div>
+    </div>
+</div></div>
+
+<div class="sep"></div>
+
+<!-- TIPS -->
+<div id="tips" style="background:#f8fafc;">
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon green">💡</div>
+        <div class="section-title">Tips finales <small>Para vivir el viaje al máximo</small></div>
+    </div>
+    <div class="tips-grid">
+        <div class="tip-card"><div class="tip-num">01</div><div class="tip-txt">Hidratación constante — el calor caribeño es extremo, lleva agua siempre</div></div>
+        <div class="tip-card"><div class="tip-num">02</div><div class="tip-txt">Protector solar cada 2 horas — especialmente en la Isla Saona</div></div>
+        <div class="tip-card"><div class="tip-num">03</div><div class="tip-txt">Propinas: lleva billetes de $1 USD sueltos para meseros y personal</div></div>
+        <div class="tip-card"><div class="tip-num">04</div><div class="tip-txt">Reservas de restaurantes: hazlas el primer día que llegues al resort</div></div>
+        <div class="tip-card"><div class="tip-num">05</div><div class="tip-txt">Palace Credits primero en JC Prime, Spa y Fuego — las experiencias premium</div></div>
+        <div class="tip-card"><div class="tip-num">06</div><div class="tip-txt">Snorkeling: el resort tiene equipo gratis en la playa</div></div>
+        <div class="tip-card"><div class="tip-num">07</div><div class="tip-txt">Power banks siempre cargados — muchas fotos y videos para el recuerdo</div></div>
+        <div class="tip-card"><div class="tip-num">08</div><div class="tip-txt">¡Todo está incluido — relájate, disfruta sin preocuparte por el costo!</div></div>
+    </div>
+
+    <!-- Budget summary -->
+    <div class="budget-card" style="margin-top:32px;">
+        <p style="font-size:13px; opacity:.8; letter-spacing:1px; text-transform:uppercase; font-weight:700;">Presupuesto total estimado</p>
+        <div class="amount">$8,433 – $9,483 USD</div>
+        <small>5 personas · Hotel all-inclusive · Vuelos · Tours · Extras</small>
+    </div>
+</div></div>
+
+<!-- FINAL -->
+<div class="final">
+    <h2>¡Que tengan un viaje</h2>
+    <h2>INOLVIDABLE!</h2>
+    <div class="wave-icons">🌴 ☀️ 🏖️ 🌊 🐚</div>
+    <p style="font-size:18px; font-weight:700;">Familia Estrada García</p>
+    <p style="margin-top:6px;">Punta Cana, República Dominicana · Agosto 2026</p>
+</div>
+
+<footer>
+    <p><strong>Familia Estrada García · Punta Cana 2026</strong></p>
+    <p>Para imprimir: Ctrl+P (Windows) / Cmd+P (Mac) → Guardar como PDF</p>
+    <p style="margin-top:8px; opacity:.4;">Plan generado Mayo 2026</p>
+</footer>
+
+<!-- FAB -->
+<button class="fab" onclick="window.print()">📄 Guardar PDF</button>
+
+<script>
+// ─── COUNTDOWN ─────────────────────────────────────────────
+// Salida de casa: 17 Agosto 2026, 22:00 (UTC-6, Guatemala)
+const TARGET = new Date('2026-08-17T22:00:00-06:00').getTime();
+// Plan creation reference: 18 Mayo 2026 (start date for progress bar)
+const PLAN_START = new Date('2026-05-18T00:00:00-06:00').getTime();
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function updateCountdown() {
+    const now = Date.now();
+    const diff = TARGET - now;
+
+    if (diff <= 0) {
+        document.getElementById('cd-label').style.display = 'none';
+        document.getElementById('countdown-grid').style.display = 'none';
+        document.getElementById('arrived-msg').style.display = 'block';
+        return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
+
+    // Progress bar: from plan creation → departure
+    const total = TARGET - PLAN_START;
+    const elapsed = now - PLAN_START;
+    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    document.getElementById('progress-fill').style.width = pct.toFixed(1) + '%';
+    document.getElementById('progress-pct').textContent = pct.toFixed(0) + '%';
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ─── CHECKLIST ─────────────────────────────────────────────
+function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const box = el.querySelector('.check-box');
+    box.textContent = el.classList.contains('checked') ? '✓' : '';
+    // Persist in localStorage
+    saveChecklist();
+}
+
+function saveChecklist() {
+    const items = document.querySelectorAll('.check-item');
+    const state = [];
+    items.forEach((el, i) => state.push(el.classList.contains('checked')));
+    try { localStorage.setItem('puntacana_checklist', JSON.stringify(state)); } catch(e){}
+}
+
+function loadChecklist() {
+    try {
+        const state = JSON.parse(localStorage.getItem('puntacana_checklist') || '[]');
+        const items = document.querySelectorAll('.check-item');
+        items.forEach((el, i) => {
+            if (state[i]) {
+                el.classList.add('checked');
+                el.querySelector('.check-box').textContent = '✓';
+            }
+        });
+    } catch(e){}
+}
+
+// ─── NAV ACTIVE STATE ───────────────────────────────────────
+function updateNav() {
+    const sections = ['inicio','vuelos','dias','restaurantes','alertas','checklist','contactos','tips'];
+    const navLinks = document.querySelectorAll('.nav-link');
+    let active = 'inicio';
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (window.scrollY >= el.offsetTop - 80) active = id;
+    });
+    navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + active);
+    });
+}
+
+// ─── SCROLL ANIMATIONS ─────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.08 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadChecklist();
+    const cards = document.querySelectorAll('.day-card, .flight-card, .resto-card, .tip-card, .contact-card, .alert-row');
+    cards.forEach(c => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(18px)';
+        c.style.transition = 'opacity .5s ease, transform .5s ease';
+        observer.observe(c);
+    });
+});
+
+window.addEventListener('scroll', updateNav, { passive: true });
+</script>
+</body>
+</html>
