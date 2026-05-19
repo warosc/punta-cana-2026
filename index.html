@@ -527,10 +527,46 @@
         .sep { height:1px; background:linear-gradient(90deg,transparent,var(--sep-clr),transparent); margin:0 20px; }
 
         @media print {
-            nav, .fab-group, .modal-overlay, .menu-panel, .menu-overlay { display:none !important; }
+            nav, .fab-group, .cc-widget, .modal-overlay, .menu-panel, .menu-overlay { display:none !important; }
             body { background:white; }
             #inicio { min-height:unset; padding-top:20px; }
         }
+
+        /* ─── PC TAX LINES ───────────────────────────────────── */
+        .pc-tax-line { font-size:10px; color:var(--coral); font-weight:700; margin-top:3px; }
+        .pc-wallet-tax { font-size:12px; font-weight:700; background:rgba(255,255,255,0.15);
+                         border-radius:8px; padding:5px 10px; display:inline-block; margin-top:6px; }
+
+        /* ─── CONVERSOR MONEDA ───────────────────────────────── */
+        .cc-widget { position:fixed; bottom:24px; left:16px; z-index:99; }
+        .cc-pill { background:linear-gradient(135deg,#0c4a6e,#0ea5e9); color:white; border:none;
+                   border-radius:50px; padding:11px 18px; font-size:14px; font-weight:700;
+                   cursor:pointer; box-shadow:0 8px 24px rgba(14,165,233,.4);
+                   display:flex; align-items:center; gap:6px; transition:transform .2s; font-family:'Poppins',sans-serif; }
+        .cc-pill:hover { transform:scale(1.05); }
+        .cc-panel { display:none; background:var(--surface); border-radius:20px; padding:18px;
+                    box-shadow:0 12px 40px rgba(0,0,0,.18); border:1.5px solid var(--border);
+                    width:270px; margin-bottom:10px; }
+        .cc-panel.open { display:block; }
+        .cc-panel-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+        .cc-panel-title { font-size:13px; font-weight:800; color:var(--txt); }
+        .cc-close-btn { background:var(--surface2); border:none; border-radius:50%; width:26px; height:26px;
+                        cursor:pointer; font-size:14px; color:var(--txt2); display:flex; align-items:center; justify-content:center; }
+        .cc-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+        .cc-flag { font-size:18px; width:28px; text-align:center; flex-shrink:0; }
+        .cc-code { font-size:11px; font-weight:800; color:var(--txt2); width:30px; flex-shrink:0; letter-spacing:.5px; }
+        .cc-input { flex:1; padding:8px 10px; border:1.5px solid var(--border); border-radius:10px;
+                    font-size:15px; font-weight:700; font-family:'Poppins',sans-serif; color:var(--txt);
+                    background:var(--surface2); text-align:right; transition:border-color .2s; width:0; }
+        .cc-input:focus { outline:none; border-color:var(--sky); background:var(--surface); }
+        .cc-presets { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+        .cc-preset-btn { background:var(--surface2); border:1.5px solid var(--border); border-radius:8px;
+                         padding:4px 10px; font-size:11px; font-weight:700; color:var(--txt2); cursor:pointer;
+                         transition:background .15s,color .15s; }
+        .cc-preset-btn:hover { background:var(--sky); color:white; border-color:var(--sky); }
+        .cc-rate-note { font-size:10px; color:var(--txt2); text-align:center; line-height:1.5; }
+        .cc-rate-note.live { color:var(--palm); }
+        .cc-rate-note.stale { color:var(--coral); }
     </style>
 </head>
 <body>
@@ -565,6 +601,7 @@
         <a href="#checklist"    class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">✅</span>Check</a>
         <a href="#contactos"    class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">📞</span>SOS</a>
         <a href="#tips"         class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">💡</span>Tips</a>
+        <a href="#" class="menu-item" onclick="ccToggle();closeMenu()"><span class="menu-item-icon">💱</span>Cambio</a>
     </div>
 </div>
 
@@ -879,6 +916,7 @@
                 <div class="pc-wallet-label">Saldo disponible</div>
                 <div class="pc-balance" id="pc-balance"><small>$</small><span id="pc-bal-num">1,500</span></div>
                 <div class="pc-used-label">Asignado: $<span id="pc-used-num">0</span> USD</div>
+            <div class="pc-wallet-tax">💳 Pago extra en tarjeta: ~$<span id="pc-tax-total">0</span></div>
             </div>
             <button class="pc-reset-btn" onclick="pcReset()">↺ Reiniciar</button>
         </div>
@@ -1124,6 +1162,36 @@
     <p style="margin-top:8px;opacity:.4;">Plan generado Mayo 2026</p>
 </footer>
 
+<!-- CONVERSOR MONEDA -->
+<div class="cc-widget">
+    <div class="cc-panel" id="cc-panel">
+        <div class="cc-panel-header">
+            <div class="cc-panel-title">💱 Conversor de moneda</div>
+            <button class="cc-close-btn" onclick="ccToggle()">✕</button>
+        </div>
+        <div class="cc-row">
+            <span class="cc-flag">🇺🇸</span><span class="cc-code">USD</span>
+            <input class="cc-input" id="cc-usd" type="number" inputmode="decimal" placeholder="0" oninput="ccConvert('usd')">
+        </div>
+        <div class="cc-row">
+            <span class="cc-flag">🇬🇹</span><span class="cc-code">GTQ</span>
+            <input class="cc-input" id="cc-gtq" type="number" inputmode="decimal" placeholder="0" oninput="ccConvert('gtq')">
+        </div>
+        <div class="cc-row">
+            <span class="cc-flag">🇩🇴</span><span class="cc-code">DOP</span>
+            <input class="cc-input" id="cc-dop" type="number" inputmode="decimal" placeholder="0" oninput="ccConvert('dop')">
+        </div>
+        <div class="cc-presets">
+            <button class="cc-preset-btn" onclick="ccPreset(50)">$50</button>
+            <button class="cc-preset-btn" onclick="ccPreset(100)">$100</button>
+            <button class="cc-preset-btn" onclick="ccPreset(200)">$200</button>
+            <button class="cc-preset-btn" onclick="ccPreset(500)">$500</button>
+        </div>
+        <div class="cc-rate-note" id="cc-rate-note">Cargando tasas…</div>
+    </div>
+    <button class="cc-pill" onclick="ccToggle()">💱 Cambio</button>
+</div>
+
 <!-- FAB compartir -->
 <div class="fab-group">
     <button class="fab share-fab" onclick="openShare()">🔗 Compartir</button>
@@ -1195,12 +1263,13 @@ setInterval(updateCountdown, 1000);
 
 // ─── PALACE CREDITS ─────────────────────────────────────────
 const PC_ACTIVITIES = [
-    { id:'jcprime',  icon:'🥩', name:'JC Prime Room 84',         desc:'Steakhouse premium — cena para 5', default:350, step:50 },
-    { id:'fuego',    icon:'🔥', name:'Fuego by Grilling Bastards',desc:'Carne a la parrilla premium',      default:350, step:50 },
-    { id:'spa',      icon:'💆', name:'O Spa',                     desc:'Masajes + circuito hidroterapia',  default:400, step:50 },
-    { id:'golf',     icon:'⛳', name:'Greg Norman Golf',          desc:'Green fees (1–2 personas)',        default:200, step:50 },
-    { id:'bowling',  icon:'🎳', name:'The Ninth Pin',             desc:'Bowling + bar',                   default:100, step:25 },
-    { id:'extra',    icon:'🎁', name:'Extras / Tienda',           desc:'Souvenirs, snacks premium, otros', default:100, step:25 },
+    { id:'jcprime',   icon:'🥩', name:'JC Prime Room 84',          desc:'Cena especial para 2 (prix-fixe steakhouse)',     default:350, step:50 },
+    { id:'fuego',     icon:'🔥', name:'Fuego by Grilling Bastards', desc:'Parrilla premium — cena para 2',             default:300, step:50 },
+    { id:'spa',       icon:'💆', name:'O Spa',                      desc:'Masajes — 2 personas (~$80 c/u)',           default:160, step:20 },
+    { id:'golf',      icon:'⛳', name:'Greg Norman Golf Course',         desc:'Green fee — 1 jugador (9 ó 18 hoyos)', default:200, step:25 },
+    { id:'bowling',   icon:'🎳', name:'The Ninth Pin',               desc:'Bowling familiar + bar — ~1.5 hrs',         default: 80, step:10 },
+    { id:'saona',     icon:'🏝', name:'Isla Saona / Tours',          desc:'Excursión catamarán 5 personas (~$90 c/u)', default:450, step:10 },
+    { id:'concierge', icon:'🎫', name:'Palace Connections',          desc:'Shows, cabalgata, experiencias extra',           default: 60, step:20 },
 ];
 let pcAmounts = {};
 
@@ -1240,10 +1309,22 @@ function pcRender() {
     const warn = document.getElementById('pc-warning');
     warn.classList.toggle('show', total > TOTAL_CREDITS);
 
+    let taxTotal = 0;
     PC_ACTIVITIES.forEach(a => {
-        const el = document.getElementById('pc-amt-' + a.id);
-        if (el) el.textContent = '$' + (pcAmounts[a.id] || 0).toLocaleString();
+        const amt   = pcAmounts[a.id] || 0;
+        const amtEl = document.getElementById('pc-amt-' + a.id);
+        const taxEl = document.getElementById('pc-tax-' + a.id);
+        if (amtEl) amtEl.textContent = '$' + amt.toLocaleString();
+        if (taxEl) {
+            if (amt > 0) {
+                const tax = Math.round(amt * 0.18);
+                taxEl.textContent = '~$' + tax + ' en tarjeta (18%)';
+                taxTotal += tax;
+            } else { taxEl.textContent = ''; }
+        }
     });
+    const taxTotalEl = document.getElementById('pc-tax-total');
+    if (taxTotalEl) taxTotalEl.textContent = taxTotal.toLocaleString();
 
     // sync dinner credits display
     updateDinnerSummary();
@@ -1256,6 +1337,7 @@ function pcBuild() {
             <div class="pc-activity-info">
                 <div class="pc-activity-name">${a.name}</div>
                 <div class="pc-activity-desc">${a.desc}</div>
+                <div class="pc-tax-line" id="pc-tax-${a.id}"></div>
             </div>
             <div class="pc-activity-ctrl">
                 <button class="pc-minus" onclick="pcChange('${a.id}',-1)">−</button>
@@ -1543,6 +1625,60 @@ async function wxLoad() {
     wxRender(WX_STATIC, false);
 }
 
+
+// ─── CONVERSOR MONEDA ────────────────────────────────────────
+const CC_FALLBACK = { gtq:7.75, dop:58.5 };
+let ccRates = { ...CC_FALLBACK };
+const CC_KEY = 'pc_cc_rates';
+const CC_TTL = 5 * 60 * 1000;
+
+function ccToggle() { document.getElementById('cc-panel').classList.toggle('open'); }
+
+function ccPreset(usd) {
+    document.getElementById('cc-usd').value = usd;
+    document.getElementById('cc-panel').classList.add('open');
+    ccConvert('usd');
+}
+
+function ccConvert(src) {
+    const usdEl = document.getElementById('cc-usd');
+    const gtqEl = document.getElementById('cc-gtq');
+    const dopEl = document.getElementById('cc-dop');
+    const fmt = n => n > 0 ? parseFloat(n.toFixed(2)) : '';
+    let usd = 0;
+    if (src === 'usd') usd = parseFloat(usdEl.value) || 0;
+    else if (src === 'gtq') usd = (parseFloat(gtqEl.value) || 0) / ccRates.gtq;
+    else if (src === 'dop') usd = (parseFloat(dopEl.value) || 0) / ccRates.dop;
+    if (src !== 'usd') usdEl.value = fmt(usd);
+    if (src !== 'gtq') gtqEl.value = fmt(usd * ccRates.gtq);
+    if (src !== 'dop') dopEl.value = fmt(usd * ccRates.dop);
+}
+
+async function ccLoadRates() {
+    const note = document.getElementById('cc-rate-note');
+    try {
+        const cached = JSON.parse(localStorage.getItem(CC_KEY) || 'null');
+        if (cached && Date.now() - cached.ts < CC_TTL) {
+            ccRates = cached.rates;
+            const hhmm = new Date(cached.ts).toTimeString().slice(0,5);
+            if (note) { note.textContent = 'Actualizado: ' + hhmm; note.className = 'cc-rate-note live'; }
+            return;
+        }
+    } catch(e) {}
+    try {
+        const res  = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        if (!data.rates || !data.rates.GTQ) throw new Error('no GTQ');
+        ccRates = { gtq: data.rates.GTQ, dop: data.rates.DOP };
+        const ts = Date.now();
+        try { localStorage.setItem(CC_KEY, JSON.stringify({ rates:ccRates, ts })); } catch(e) {}
+        const hhmm = new Date(ts).toTimeString().slice(0,5);
+        if (note) { note.textContent = 'Tasa en vivo: ' + hhmm; note.className = 'cc-rate-note live'; }
+    } catch(e) {
+        if (note) { note.textContent = '⚠ Tasa estimada (sin internet)'; note.className = 'cc-rate-note stale'; }
+    }
+}
+
 // ─── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     loadTheme();
@@ -1551,6 +1687,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dinnerLoad(); dinnerBuild();
     loadChecklist();
     wxLoad();
+    ccLoadRates();
     document.querySelectorAll('.day-card,.flight-card,.resto-card,.tip-card,.contact-card,.alert-row,.weather-card,.pc-activity,.dinner-night').forEach(c => {
         c.style.opacity='0'; c.style.transform='translateY(18px)'; c.style.transition='opacity .5s ease,transform .5s ease';
         observer.observe(c);
